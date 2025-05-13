@@ -12,6 +12,8 @@ namespace Elearning.Models
         [Required, EmailAddress]
         public string Email { get; set; }
 
+        public string Password { get; set; }
+
         public List<Course> CoursesEnrolled { get; set; } = new();
         public List<StudentAssignment> AssignmentsSubmitted { get; set; } = new();
     }

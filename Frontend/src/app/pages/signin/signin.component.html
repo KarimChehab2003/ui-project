@@ -1,1 +1,48 @@
-<p>signin works!</p>
+<div class="body">
+    <div class="container">
+
+        <div class="left-panel">
+            <div class="header">
+                <div class="logo-circle">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                        <path
+                        d="M12 3L2 8l10 5 10-5-10-5zm0 13c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"
+                        fill="#fff"
+                        />
+                    </svg>
+                </div>
+                <span class="lms-text">LMS</span>
+            </div>
+            <h1>Login To Your Account</h1>
+            <form class="signin-form" (submit)="signInPressed()">
+                <select required [(ngModel)]="role" name="role">
+                    <option value="" disabled hidden>Role</option>
+                    <option value="student">Student</option>
+                    <option value="instructor">Instructor</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <input type="email" name="email"  placeholder="Email" required [(ngModel)]="email" />
+                <div class="password-wrapper">
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        id="signin-password"
+                        required
+                        [(ngModel)]="password"
+                    />
+                </div>
+                <button type="submit" class="signin-btn">Sign In</button>
+            </form>
+        </div>
+
+        <div class="right-panel">
+            <h2>New Here?</h2>
+            <p>
+                Create your account to access courses, track progress, and stay ahead
+                in college.
+            </p>
+            <button class="signup-btn" (click)="goToSignUp()">Sign Up</button>
+        </div>
+    </div>
+</div>

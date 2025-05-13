@@ -1,1 +1,43 @@
-<p>signup works!</p>
+<div class="body">
+    <div class="container">
+        <div class="left-panel">
+            <h2>Already A Member?</h2>
+            <p>Sign in to continue your learning journey.</p>
+            <button class="sign-in-btn" (click)="goToSignIn()">Sign In</button>
+        </div>
+        <div class="right-panel">
+            <div class="header">
+                <div class="logo-circle">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                        <path
+                        d="M12 3L2 8l10 5 10-5-10-5zm0 13c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"
+                        fill="#fff"
+                        />
+                    </svg>
+                </div>
+                <span class="lms-text">LMS</span>
+            </div>
+            <h1>Create Account</h1>
+            <form class="signup-form" (submit)="signUpPressed()">
+                <input type="text" placeholder="Name" name="name" [(ngModel)]="name" required />
+                <select [(ngModel)]="role" name="role" required>
+                    <option value="" disabled selected>Role</option>
+                    <option value="student">Student</option>
+                    <option value="instructor">Instructor</option>
+                </select>
+                <input [(ngModel)]="email" name="email" type="email" placeholder="Email" required />
+                <div class="password-wrapper">
+                <input
+                    type="password"
+                    placeholder="Password"
+                    id="password"
+                    required
+                    [(ngModel)]="password"
+                    name="password"
+                />
+                </div>
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>

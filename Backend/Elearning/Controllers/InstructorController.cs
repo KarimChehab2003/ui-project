@@ -29,7 +29,7 @@ namespace Elearning.Controllers
                     Id = i.Id,
                     Name = i.Name,
                     Email = i.Email,
-                    
+                    Password = i.Password,
                 })
                 .ToListAsync();
 
@@ -50,6 +50,7 @@ namespace Elearning.Controllers
                 Id = instructor.Id,
                 Name = instructor.Name,
                 Email = instructor.Email,
+                Password = instructor.Password,
              
             };
         }
@@ -60,7 +61,8 @@ namespace Elearning.Controllers
             var instructor = new Instructor
             {
                 Name = instructorDto.Name,
-                Email = instructorDto.Email
+                Email = instructorDto.Email,
+                Password = instructorDto.Password,
             };
 
 
@@ -78,6 +80,7 @@ namespace Elearning.Controllers
 
             instructor.Name = instructorDto.Name;
             instructor.Email = instructorDto.Email;
+            instructor.Password = instructorDto.Password;
 
             await _context.SaveChangesAsync();
             return NoContent();

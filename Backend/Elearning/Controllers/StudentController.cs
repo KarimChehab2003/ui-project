@@ -29,7 +29,8 @@ namespace Elearning.Controllers
                     Id = s.Id,
                     Name = s.Name,
                     Email = s.Email,
-                    CourseIds = s.CoursesEnrolled.Select(c => c.Id).ToList()
+                    CourseIds = s.CoursesEnrolled.Select(c => c.Id).ToList(),
+                    Password = s.Password,
                 })
                 .ToListAsync();
 
@@ -50,7 +51,8 @@ namespace Elearning.Controllers
                 Id = student.Id,
                 Name = student.Name,
                 Email = student.Email,
-                CourseIds = student.CoursesEnrolled.Select(c => c.Id).ToList()
+                CourseIds = student.CoursesEnrolled.Select(c => c.Id).ToList(),
+                Password = student.Password,
             };
         }
 
@@ -60,7 +62,8 @@ namespace Elearning.Controllers
             var student = new Student
             {
                 Name = studentDto.Name,
-                Email = studentDto.Email
+                Email = studentDto.Email,
+                Password = studentDto.Password,
             };
 
             _context.Students.Add(student);
@@ -77,6 +80,7 @@ namespace Elearning.Controllers
 
             student.Name = studentDto.Name;
             student.Email = studentDto.Email;
+            student.Password = studentDto.Password;
 
             await _context.SaveChangesAsync();
             return NoContent();
