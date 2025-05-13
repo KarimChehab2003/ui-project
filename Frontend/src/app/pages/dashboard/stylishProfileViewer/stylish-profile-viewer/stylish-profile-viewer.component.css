@@ -1,0 +1,172 @@
+.primary-dashboard-layout {
+        box-sizing: border-box;
+        min-width: 300px;
+        padding-top: 35px;
+        padding-bottom: 522px;
+        background: #1e293b;
+      }
+      .user-panel {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding-right: 19px;
+        padding-left: 19px;
+      }
+      .center-box-with-image {
+        box-sizing: border-box;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        width: 75px;
+        height: 75px;
+        padding: 3px 12px;
+        overflow: hidden;
+        background: #d9d9d9;
+        border-radius: 38px;
+      }
+      .image-container {
+        box-sizing: border-box;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 48px;
+        height: 48px;
+        overflow: hidden;
+      }
+      .vertical-centered-box {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        width: 36px;
+        height: 48px;
+      }
+      .image-container1 {
+        display: block;
+        flex: 0 0 auto;
+        max-width: initial;
+        height: 40px;
+      }
+      .welcome-section {
+        flex: 0 0 auto;
+        padding-top: 3px;
+        padding-bottom: 9px;
+        margin-left: 16px;
+      }
+      .horizontal-flex-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .welcome-box {
+        box-sizing: border-box;
+        display: block;
+        width: 15px;
+        max-width: initial;
+        height: 15px;
+      }
+      .welcome-message-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-left: 11px;
+        font: 100 24px Inter, sans-serif;
+        color: white;
+      }
+      .welcome-message {
+        padding: 0;
+        margin: 0;
+        margin-top: 5px;
+        font: 400 24px Inter, sans-serif;
+        color: white;
+      }
+      .vertical-menu-container {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 57px;
+        align-items: stretch;
+        justify-content: center;
+        width: 100%;
+        margin-top: 30px;
+      }
+      .vertical-flex-container {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+      }
+      .dashboard-container {
+        box-sizing: border-box;
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 97px;
+        padding-right: 22.5px;
+        background: #334155;
+      }
+      .svg-container {
+        display: flex;
+        flex: 0 0 auto;
+        width: 48px;
+        height: 48px;
+      }
+      .dashboard-title-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-left: 15.5px;
+        font: 300 30px Inter, sans-serif;
+        color: white;
+      }
+      .course-card-container {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-right: 8.5px;
+        margin-top: 23.5px;
+      }
+      .profile-card {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-right: 79px;
+      }
+      .svg-container1 {
+        display: flex;
+        flex: 0 0 auto;
+        width: 32px;
+        height: 32px;
+      }
+      .profile-link-style {
+        flex: 0 0 auto;
+        padding: 0;
+        margin: 0;
+        margin-left: 23.5px;
+        font: 300 30px Inter, sans-serif;
+        color: white;
+      }
+      .navbar-item-logout {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-right: 69px;
+        margin-top: 4.5px;
+      }
