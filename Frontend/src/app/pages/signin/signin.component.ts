@@ -22,6 +22,16 @@ export class SigninComponent {
   user: Instructor | Admin | Student | null = null;
 
   signInPressed(){
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (this.role === "" || this.email === "" || this.password === "") {
+      return alert('Login failed: Please enter all fields.');
+    }
+
+    if (!emailRegex.test(this.email)) {
+      return alert('Login failed: Please enter a valid email address.');
+    }
+
     this.authorizationService.signIn(this.role, this.email, this.password).subscribe({
       next: (user) => {
         this.user = user;
@@ -41,7 +51,6 @@ export class SigninComponent {
         alert('Login failed: ' + err.message);
       }
     });
-
   }
 
   goToSignUp(){

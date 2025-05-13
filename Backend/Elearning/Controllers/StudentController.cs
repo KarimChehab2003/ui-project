@@ -56,6 +56,13 @@ namespace Elearning.Controllers
             };
         }
 
+        [HttpGet("check-email")]
+        public async Task<ActionResult<bool>> CheckEmail([FromQuery] string email)
+        {
+            var student = await _context.Students.FirstOrDefaultAsync(s => s.Email == email);
+            return (student != null);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Student>> CreateStudent(StudentDTO studentDto)
         {

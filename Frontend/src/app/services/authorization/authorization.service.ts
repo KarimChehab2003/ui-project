@@ -3,7 +3,8 @@ import { Admin } from '../../models/admin';
 import { Student } from '../../models/student';
 import { Instructor } from '../../models/instructor';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map , throwError } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -44,22 +45,32 @@ export class AuthorizationService {
   }
 
 
-  // SignUp Function
   signUp(role: string, name: string, email: string, password: string): Observable<Student | Instructor> {
     let endpoint = '';
+    let checkEmailEndpoint = '';
 
     if (role === 'student') {
       endpoint = `${this.baseUrl}/Students`;
+      checkEmailEndpoint = `${this.baseUrl}/Students/check-email?email=${encodeURIComponent(email)}`;
     } else if (role === 'instructor') {
       endpoint = `${this.baseUrl}/Instructor`;
+      checkEmailEndpoint = `${this.baseUrl}/Instructor/check-email?email=${encodeURIComponent(email)}`;
     }
 
-    const payload = {
-      name: name,
-      email: email,
-      password: password
-    };
-
-    return this.http.post<Student | Instructor>(endpoint, payload);
+    return this.http.get<boolean>(checkEmailEndpoint).pipe(
+      switchMap((exists: boolean) => {
+        if (exists) {
+          return throwError(() => new Error('Email already taken'));
+        } else {
+          const payload = {
+            name: name,
+            email: email,
+            password: password
+          };
+          return this.http.post<Student | Instructor>(endpoint, payload);
+        }
+      })
+    );
   }
+
 }
