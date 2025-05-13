@@ -1,0 +1,218 @@
+.primary-content-container {
+  box-sizing: border-box;
+  width: 100%;
+  padding-top: 35px;
+  padding-bottom: 259px;
+  background: #1e293b;
+  border: 1px solid #1e293b;
+}
+.user-panel {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-right: 19px;
+  padding-left: 19px;
+}
+.center-box-with-image {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  padding: 3px 12px;
+  overflow: hidden;
+  background: #d9d9d9;
+  border: 1px solid #1e293b;
+  border-radius: 38px;
+}
+.vertical-centered-image-container {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+}
+.vertical-centered-box {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  width: 36px;
+  height: 48px;
+}
+.image-container {
+  display: block;
+  flex: 0 0 auto;
+  max-width: initial;
+  height: 40px;
+}
+.welcome-section {
+  flex: 0 0 auto;
+  padding-bottom: 8px;
+  margin-left: 15px;
+}
+.flex-row-centered {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.welcome-message-container {
+  box-sizing: border-box;
+  display: block;
+  width: 15px;
+  max-width: initial;
+  height: 15px;
+}
+.welcome-message-style {
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  margin-left: 10px;
+  font: 100 24px Inter, sans-serif;
+  color: white;
+  -webkit-text-stroke-color: #1e293b;
+  -webkit-text-stroke-width: 1px;
+}
+.welcome-message {
+  padding: 0;
+  margin: 0;
+  margin-top: 3px;
+  font: 400 24px Inter, sans-serif;
+  color: white;
+  -webkit-text-stroke-color: #1e293b;
+  -webkit-text-stroke-width: 1px;
+}
+.dashboard-layout {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 55px;
+}
+.dashboard-layout1 {
+  box-sizing: border-box;
+  width: 100%;
+}
+.center-align-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-right: 21.5px;
+}
+.svg-container {
+  display: flex;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+}
+.course-title-text-style {
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  margin-left: 14.5px;
+  font: 300 30px Inter, sans-serif;
+  color: white;
+  -webkit-text-stroke-color: #1e293b;
+  -webkit-text-stroke-width: 1px;
+}
+.course-list-container2 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 23.5px;
+  padding-bottom: 55px;
+  margin-top: 24.5px;
+  background: #334155;
+  border: 1px solid #1e293b;
+}
+.course-list-container1 {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: -7.5px;
+}
+.course-container {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+.svg-container1 {
+  display: flex;
+  flex: 0 0 auto;
+  align-self: center;
+  width: 48px;
+  height: 48px;
+}
+.header-decoration {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  height: 35px;
+  margin-top: -42px;
+  margin-right: 6.5px;
+  margin-left: 6.5px;
+  border: 1px solid #1e293b;
+}
+.course-list-container {
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  margin-top: 21.5px;
+  margin-left: 37px;
+  font: 300 26px Inter, sans-serif;
+  color: white;
+  text-align: left;
+}
+.course-list-item {
+  padding-left: 1.5em;
+  margin: 0;
+  list-style: disc;
+}
+.profile-card-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-right: 78px;
+  margin-top: 30px;
+}
+.svg-container2 {
+  display: flex;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+}
+.profile-heading {
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  margin-left: 22.5px;
+  font: 300 30px Inter, sans-serif;
+  color: white;
+  -webkit-text-stroke-color: #1e293b;
+  -webkit-text-stroke-width: 1px;
+}
+.logout-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-right: 68px;
+  margin-top: 59px;
+}
