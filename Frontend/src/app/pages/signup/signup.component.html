@@ -20,7 +20,7 @@
             <h1>Create Account</h1>
             <form class="signup-form" (submit)="signUpPressed()">
                 <input type="text" placeholder="Name" name="name" [(ngModel)]="name" required />
-                <select [(ngModel)]="role" name="role" required>
+                <select [(ngModel)]="role" name="role" required id="role-select">
                     <option value="" disabled selected>Role</option>
                     <option value="student">Student</option>
                     <option value="instructor">Instructor</option>
