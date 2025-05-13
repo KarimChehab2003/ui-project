@@ -6,31 +6,31 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Elearning.Controllers
 {
-    [Route("api/submissions")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class StudentAssignmentController : ControllerBase
+    public class StudentQuizController : ControllerBase
     {
         private readonly ElearningContext _context;
 
-        public StudentAssignmentController(ElearningContext context)
+        public StudentQuizController(ElearningContext context)
         {
             _context = context;
         }
 
-        [HttpPost("{studentId}/{assignmentId}")]
-        public async Task<IActionResult> SubmitAssignment(int studentId, int assignmentId)
+        [HttpPost("{studentId}/{quizId}")]
+        public async Task<IActionResult> SubmitQuiz(int studentId, int quizId)
         {
             var student = await _context.Students.FindAsync(studentId);
-            var assignment = await _context.Assignments.FindAsync(assignmentId);
-            if (student == null || assignment == null) return NotFound();
+            var quiz = await _context.Quizzes.FindAsync(quizId);
+            if (student == null || quiz == null) return NotFound();
 
-            var submission = new StudentAssignment
+            var submission = new StudentQuiz
             {
                 StudentId = studentId,
-                AssignmentId = assignmentId,
+                QuizId = quizId,
             };
 
-            _context.StudentAssignments.Add(submission);
+            _context.StudentQuizzes.Add(submission);
             await _context.SaveChangesAsync();
             return Ok();
         }
@@ -38,7 +38,7 @@ namespace Elearning.Controllers
         [HttpPut("{submissionId}/grade")]
         public async Task<IActionResult> GradeSubmission(int submissionId, [FromBody] GradeDTO gradeDto)
         {
-            var submission = await _context.StudentAssignments.FindAsync(submissionId);
+            var submission = await _context.StudentQuizzes.FindAsync(submissionId);
             if (submission == null) return NotFound();
 
             submission.Grade = gradeDto.Grade;

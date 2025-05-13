@@ -95,5 +95,34 @@ namespace Elearning.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpPost("{assignmentId}/assign-student/{studentId}")]
+
+        public async Task<IActionResult> AssignStudentToAssignment(int assignmentId, int studentId)
+        {
+            var assignment = await _context.Assignments
+                .Include(a => a.StudentAssignments)
+                .FirstOrDefaultAsync(a => a.Id == assignmentId);
+
+            var student = await _context.Students.FindAsync(studentId);
+
+            if (assignment == null || student == null)
+                return NotFound();
+
+            if (!assignment.StudentAssignments.Any(sa => sa.StudentId == studentId))
+            {
+                var studentAssignment = new StudentAssignment
+                {
+                    StudentId = studentId,
+                    AssignmentId = assignmentId
+                };
+
+                assignment.StudentAssignments.Add(studentAssignment);
+                await _context.SaveChangesAsync();
+            }
+
+            return NoContent();
+        }
+
     }
 }

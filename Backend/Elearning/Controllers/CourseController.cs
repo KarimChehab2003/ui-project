@@ -25,6 +25,7 @@ namespace Elearning.Controllers
                 .Include(c => c.Instructor)
                 .Include(c => c.StudentsEnrolled)
                 .Include(c => c.Assignments)
+                .Include(c => c.Quizzes)
                 .Select(c => new CourseDTO
                 {
                     Id = c.Id,
@@ -32,7 +33,8 @@ namespace Elearning.Controllers
                     Description = c.Description,
                     InstructorId = c.InstructorId,
                     StudentIds = c.StudentsEnrolled.Select(s => s.Id).ToList(),
-                    AssignmentIds = c.Assignments.Select(a => a.Id).ToList()
+                    AssignmentIds = c.Assignments.Select(a => a.Id).ToList(),
+                    QuizIds = c.Quizzes.Select(a => a.Id).ToList(),
                 })
                 .ToListAsync();
 
@@ -46,6 +48,7 @@ namespace Elearning.Controllers
                 .Include(c => c.Instructor)
                 .Include(c => c.StudentsEnrolled)
                 .Include(c => c.Assignments)
+                .Include(c => c.Quizzes)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (course == null) return NotFound();
@@ -57,7 +60,8 @@ namespace Elearning.Controllers
                 Description = course.Description,
                 InstructorId = course.InstructorId,
                 StudentIds = course.StudentsEnrolled.Select(s => s.Id).ToList(),
-                AssignmentIds = course.Assignments.Select(a => a.Id).ToList()
+                AssignmentIds = course.Assignments.Select(a => a.Id).ToList(),
+                QuizIds = course.Quizzes.Select(a => a.Id).ToList()
             };
         }
 
@@ -84,7 +88,8 @@ namespace Elearning.Controllers
                 Description = course.Description,
                 InstructorId = course.InstructorId,
                 StudentIds = course.StudentsEnrolled.Select(s => s.Id).ToList(),
-                AssignmentIds = course.Assignments.Select(a => a.Id).ToList()
+                AssignmentIds = course.Assignments.Select(a => a.Id).ToList(),
+                QuizIds = course.Quizzes.Select(a => a.Id).ToList()
             });
 
         }

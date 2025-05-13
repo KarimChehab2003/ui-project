@@ -6,40 +6,34 @@
         <span class="user-avatar"><i class="fas fa-user"></i></span>
         <div>
           <div class="welcome">Welcome</div>
-          <div class="username">Instructor 1</div>
+          <div class="username">{{loggedInInstructor}}</div>
         </div>
       </div>
     </div>
     <nav class="sidebar-nav">
       <ul>
         <li>
-          <button class="sidebar-btn">
+          <button class="sidebar-btn" (click)="goToInstructorPage()">
             <i class="fas fa-plus-circle"></i> Create Course
           </button>
         </li>
         <li>
           <div class="sidebar-expandable" (click)="toggleCourses()">
             <i class="fas fa-book"></i> My Courses
-            <i
-              class="fas"
-              [ngClass]="{
-                'fa-chevron-down': coursesExpanded,
-                'fa-chevron-right': !coursesExpanded
-              }"
-            ></i>
+            <i class="fas" [ngClass]="{ 'fa-chevron-down': coursesExpanded, 'fa-chevron-right': !coursesExpanded }"></i>
           </div>
           <ul class="courses-list" *ngIf="coursesExpanded">
-            <li
+            <!-- <li
               *ngFor="let course of courses"
               [class.selected]="selectedCourse === course"
               (click)="selectCourse(course, $event)"
             >
               {{ course.name }}
-            </li>
+            </li> -->
           </ul>
         </li>
         <li>
-          <button class="sidebar-btn">
+          <button class="sidebar-btn" (click)="logout()">
             <i class="fas fa-sign-out-alt"></i> Logout
           </button>
         </li>
