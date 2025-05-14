@@ -1,5 +1,5 @@
 <section>
-    <div style="display: inline-block; width: 300px" data-ignore="used only for top most containter width">
+    <div style="display: inline-block; width: 300px">
         <div class="primary-content-container">
             <div class="user-panel">
                 <div class="center-box-with-image">
@@ -40,20 +40,10 @@
                             <p class="course-title-text-style">My Courses</p>
                         </div>
                         <div class="course-list-container">
-                            <ul class="course-list-item">
-                                <li>Course 1</li>
-                            </ul>
-                            <span><br /></span>
-                            <ul class="course-list-item">
-                                <li>Course 2</li>
-                            </ul>
-                            <span><br /></span>
-                            <ul class="course-list-item">
-                                <li>Course 3</li>
-                            </ul>
-                            <span><br /></span>
-                            <ul class="course-list-item">
-                                <li>Course 4</li>
+                            <ul>
+                                @for (course of courses; track $index) {
+                                <li class="course-list-item" (click)="handleSelect(course)">{{course.title}}</li>
+                                }
                             </ul>
                         </div>
                     </div>

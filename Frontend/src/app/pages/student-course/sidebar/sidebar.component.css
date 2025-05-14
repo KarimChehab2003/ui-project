@@ -181,9 +181,18 @@
 }
 .course-list-item {
   padding-left: 1.5em;
-  margin: 0;
-  list-style: disc;
+  list-style: inside;
 }
+
+.course-list-item li {
+  margin-bottom: 15px;
+}
+
+.course-list-item:hover {
+  color: lightblue;
+  cursor: pointer;
+}
+
 .profile-card-container {
   display: flex;
   flex-direction: row;
