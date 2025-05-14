@@ -24,10 +24,10 @@ export class AuthorizationService {
       modelBuilder = (data) => new Admin(data.id, data.name, data.email, data.password);
     } else if (role === 'student') {
       endpoint = `${this.baseUrl}/Students`;
-      modelBuilder = (data) => new Student(data.id, data.name, data.email, data.password, data.coursesIds);
+      modelBuilder = (data) => new Student(data.id, data.name, data.email, data.password, data.courseIds.$values)
     } else if (role === 'instructor') {
       endpoint = `${this.baseUrl}/Instructor`;
-      modelBuilder = (data) => new Instructor(data.id, data.name, data.email, data.password, data.coursesIds);
+      modelBuilder = (data) => new Instructor(data.id, data.name, data.email, data.password, data.courseIds.$values);
     }
 
     return this.http.get<any>(endpoint).pipe(
