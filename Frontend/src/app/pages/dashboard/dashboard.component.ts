@@ -8,7 +8,7 @@ import { Student } from '../../models/student';
 import { StudentCourseService } from '../../services/student-course/student-course.service';
 import { Courses } from '../../models/courses';
 import { BehaviorSubject } from 'rxjs';
-import { InstructorService } from '../../services/instructor/instructor.service';
+import { StudentService } from '../../services/student/student.service';
 import { Instructor } from '../../models/instructor';
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +23,7 @@ public loggedInUser: Student | null = null;
 
 public studentCourses:BehaviorSubject<Courses[]>|null = null;
 
-constructor(private studentCourseService:StudentCourseService , private instructorService:InstructorService){
+constructor(private studentCourseService:StudentCourseService , private studentService:StudentService){
   
 this.loadUser();
 
@@ -46,7 +46,7 @@ this.studentCourseService.fetchCourses();
 
 getInstructor(course:Courses):Instructor|null{
 
-return this.instructorService.getInstructor(course.instructorId);
+return this.studentService.getInstructor(course.instructorId);
 
 }
 
