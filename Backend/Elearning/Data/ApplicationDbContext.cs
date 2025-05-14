@@ -1,6 +1,7 @@
 ﻿namespace Elearning.Data
 {
     using Elearning.Models;
+    using Elearning.Models.Elearning.Models;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Reflection.Emit;
@@ -18,6 +19,7 @@
             public DbSet<Assignment> Assignments { get; set; }
 
             public DbSet<Quiz> Quizzes { get; set; }
+            public DbSet<Lecture> Lectures { get; set; }
             public DbSet<StudentAssignment> StudentAssignments { get; set; }
 
             public DbSet<StudentQuiz> StudentQuizzes { get; set; }

@@ -3,6 +3,7 @@ using Elearning.Data.ElearningAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Elearning.Migrations
 {
     [DbContext(typeof(ElearningContext))]
-    partial class ElearningContextModelSnapshot : ModelSnapshot
+    [Migration("20250514111720_lol22")]
+    partial class lol22
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -297,7 +300,7 @@ namespace Elearning.Migrations
             modelBuilder.Entity("Elearning.Models.Elearning.Models.Lecture", b =>
                 {
                     b.HasOne("Elearning.Models.Course", "Course")
-                        .WithMany("lectures")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -364,8 +367,6 @@ namespace Elearning.Migrations
                     b.Navigation("Assignments");
 
                     b.Navigation("Quizzes");
-
-                    b.Navigation("lectures");
                 });
 
             modelBuilder.Entity("Elearning.Models.Instructor", b =>
