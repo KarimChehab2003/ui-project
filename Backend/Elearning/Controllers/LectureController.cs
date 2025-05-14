@@ -1,8 +1,6 @@
 ﻿// Controllers/LectureController.cs
 using Elearning.Data.ElearningAPI.Models;
 using Elearning.Dtos;
-using Elearning.Models;
-using Elearning.Models.Elearning.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

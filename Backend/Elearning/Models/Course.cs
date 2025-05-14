@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Elearning.Models.Elearning.Models;
 
 namespace Elearning.Models
 {
@@ -22,9 +21,7 @@ namespace Elearning.Models
         public List<Assignment> Assignments { get; set; } = new();
         public List<Lecture> lectures { get; set; } = new();
 
-
         public List<Quiz> Quizzes { get; set; } = new();
 
-        public ICollection<Lecture> Lectures { get; set; } = new List<Lecture>();
     }
 }

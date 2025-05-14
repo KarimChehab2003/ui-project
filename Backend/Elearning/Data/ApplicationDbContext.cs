@@ -1,7 +1,6 @@
 ﻿namespace Elearning.Data
 {
     using Elearning.Models;
-    using Elearning.Models.Elearning.Models;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Reflection.Emit;

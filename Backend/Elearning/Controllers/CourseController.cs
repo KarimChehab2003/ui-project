@@ -35,6 +35,7 @@ namespace Elearning.Controllers
                     InstructorId = c.InstructorId,
                     StudentIds = c.StudentsEnrolled.Select(s => s.Id).ToList(),
                     AssignmentIds = c.Assignments.Select(a => a.Id).ToList(),
+                    lectureIDS = c.lectures.Select(a => a.Id).ToList(),
                     QuizIds = c.Quizzes.Select(a => a.Id).ToList(),
                 })
                 .ToListAsync();
@@ -50,7 +51,7 @@ namespace Elearning.Controllers
                 .Include(c => c.StudentsEnrolled)
                 .Include(c => c.Assignments)
                 .Include(c => c.Quizzes)
-                 .Include(c => c.lectures)
+                .Include(c => c.lectures)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (course == null) return NotFound();
