@@ -3,9 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin, map, switchMap } from 'rxjs';
 import { Observable } from 'rxjs';
 import { Courses } from '../../models/courses';
-import { Admin } from '../../models/admin';
-import { Student } from '../../models/student';
-import { Instructor } from '../../models/instructor';
 
 @Injectable({
   providedIn: 'root'
@@ -17,28 +14,33 @@ export class InstructorService {
 
   constructor(private http: HttpClient) {}
 
-  // getInstructorCourses(instructorId: number): Observable<Courses[]> {
-  //   return this.http.get<any>(`${this.baseUrl}/Instructor/${instructorId}`).pipe(
-  //     switchMap(instructor => {
-  //       const courseIds = instructor.courseIds?.$values || [];
 
-  //       const courseRequests = courseIds.map((courseId: number) =>
-  //         this.http.get<any>(`${this.baseUrl}/Course/${courseId}`).pipe(
-  //           map(course => new Courses(
-  //             course.title,
-  //             course.description,
-  //             course.lectureIds?.$values || [],
-  //             course.assignmentIds?.$values || [],
-  //             course.quizIds?.$values || [],
-  //             course.instructorId,
-  //             course.studentIds?.$values || []
-  //           ))
-  //         )
-  //       );
+  getInstructorCourses(instructorId: number): Observable<Courses[]> {
+    return this.http.get<any>(`${this.baseUrl}/Instructor/${instructorId}`).pipe(
+      switchMap(instructor => {
+        const courseIds = instructor.courseIds?.$values || [];
 
-  //       return forkJoin(courseRequests);
-  //     })
-  //   );
-  // }
+        const courseRequests = courseIds.map((courseId: number) =>
+          this.http.get<any>(`${this.baseUrl}/Course/${courseId}`).pipe(
+            map(course => new Courses(
+              course.title,
+              course.description,
+              course.durationInHours,
+              course.level,
+              course.sectionCount,
+              course.lectureCount,
+              course.lectureIDS?.$values || [],
+              course.assignmentIds?.$values || [],
+              course.quizIds?.$values || [],
+              course.instructorId,
+              course.studentIds?.$values || []
+            ))
+          )
+        );
+
+        return forkJoin<Courses[]>(courseRequests);
+      })
+    );
+  }
 
 }
