@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Student } from '../../models/student';
 import { Admin } from '../../models/admin';
 import { Instructor } from '../../models/instructor';
-import { AuthorizationService } from '../../services/authorization/authorization.service';
+import { AuthorizationService } from '../../Services/authorization/authorization.service';
 
 @Component({
   selector: 'app-signin',

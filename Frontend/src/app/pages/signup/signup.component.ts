@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthorizationService } from '../../services/authorization/authorization.service';
+import { AuthorizationService } from '../../Services/authorization/authorization.service';
 import { FormsModule } from '@angular/forms';
 import { Student } from '../../models/student';
 import { Instructor } from '../../models/instructor';

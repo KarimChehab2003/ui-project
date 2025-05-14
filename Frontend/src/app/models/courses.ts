@@ -1,5 +1,6 @@
 export class Courses {
     constructor (
+        public ID:number,
         public name: string,
         public description : string,
         public lectures: string[],
