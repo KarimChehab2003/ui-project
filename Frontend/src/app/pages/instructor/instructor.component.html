@@ -1,1 +1,41 @@
-<p>instructor works!</p>
+<div class="instructor-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+        <div class="user-info">
+            <span class="user-avatar"><i class="fas fa-user"></i></span>
+            <div>
+            <div class="welcome">Welcome</div>
+            <div class="username">{{loggedInInstructor}}</div>
+            </div>
+        </div>
+        </div>
+        <nav class="sidebar-nav">
+        <ul>
+            <li>
+            <button class="sidebar-btn selectedTab">
+                <i class="fas fa-plus-circle"></i> Create Course
+            </button>
+            </li>
+            <li>
+            <div class="sidebar-expandable" (click)="goToMyCourses()">
+                <i class="fas fa-book"></i> My Courses
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            </li>
+            <li>
+            <button class="sidebar-btn" (click)="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            </li>
+        </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="main-header">
+        <div class="app-title">LMS</div>
+        </header>
+    </main>
+</div>

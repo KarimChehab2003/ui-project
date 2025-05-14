@@ -3,6 +3,7 @@ using Elearning.Data.ElearningAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Elearning.Migrations
 {
     [DbContext(typeof(ElearningContext))]
-    partial class ElearningContextModelSnapshot : ModelSnapshot
+    [Migration("20250513203254_added_quiz")]
+    partial class added_quiz
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,55 +209,15 @@ namespace Elearning.Migrations
                     b.Property<double?>("Grade")
                         .HasColumnType("float");
 
+                    b.Property<string>("Submission")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("StudentId", "AssignmentId");
 
                     b.HasIndex("AssignmentId");
 
                     b.ToTable("StudentAssignments");
-                });
-
-            modelBuilder.Entity("Elearning.Models.StudentQuiz", b =>
-                {
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuizId")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("Grade")
-                        .HasColumnType("float");
-
-                    b.HasKey("StudentId", "QuizId");
-
-                    b.HasIndex("QuizId");
-
-                    b.ToTable("StudentQuizzes");
-                });
-
-            modelBuilder.Entity("Lecture", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Lectures");
                 });
 
             modelBuilder.Entity("CourseStudent", b =>
@@ -297,7 +260,7 @@ namespace Elearning.Migrations
             modelBuilder.Entity("Elearning.Models.Quiz", b =>
                 {
                     b.HasOne("Elearning.Models.Course", "Course")
-                        .WithMany("Quizzes")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -324,36 +287,6 @@ namespace Elearning.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("Elearning.Models.StudentQuiz", b =>
-                {
-                    b.HasOne("Elearning.Models.Quiz", "Quiz")
-                        .WithMany("StudentQuizzes")
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Elearning.Models.Student", "Student")
-                        .WithMany("QuizzesSubmitted")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Quiz");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("Lecture", b =>
-                {
-                    b.HasOne("Elearning.Models.Course", "Course")
-                        .WithMany("lectures")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-                });
-
             modelBuilder.Entity("Elearning.Models.Assignment", b =>
                 {
                     b.Navigation("StudentAssignments");
@@ -362,10 +295,6 @@ namespace Elearning.Migrations
             modelBuilder.Entity("Elearning.Models.Course", b =>
                 {
                     b.Navigation("Assignments");
-
-                    b.Navigation("Quizzes");
-
-                    b.Navigation("lectures");
                 });
 
             modelBuilder.Entity("Elearning.Models.Instructor", b =>
@@ -373,16 +302,9 @@ namespace Elearning.Migrations
                     b.Navigation("CoursesCreated");
                 });
 
-            modelBuilder.Entity("Elearning.Models.Quiz", b =>
-                {
-                    b.Navigation("StudentQuizzes");
-                });
-
             modelBuilder.Entity("Elearning.Models.Student", b =>
                 {
                     b.Navigation("AssignmentsSubmitted");
-
-                    b.Navigation("QuizzesSubmitted");
                 });
 #pragma warning restore 612, 618
         }

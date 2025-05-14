@@ -22,6 +22,20 @@ export class SignupComponent {
   constructor(private router: Router , private authorizationService : AuthorizationService) {}
 
   signUpPressed(){
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!this.role || !this.name || !this.email || !this.password) {
+      return alert('SignUp failed: Please enter all required fields.');
+    }
+
+    if (!emailRegex.test(this.email)) {
+      return alert('SignUp failed: Please enter a valid email address.');
+    }
+
+    if (this.password.length < 6) {
+      return alert('SignUp failed: Password must be at least 6 characters long.');
+    }
+
     this.authorizationService.signUp(this.role, this.name , this.email, this.password).subscribe({
       next: (user) => {
         this.user = user;

@@ -30,6 +30,7 @@ namespace Elearning.Controllers
                     Name = i.Name,
                     Email = i.Email,
                     Password = i.Password,
+                    CourseIds = i.CoursesCreated.Select(c => c.Id).ToList()
                 })
                 .ToListAsync();
 
@@ -41,6 +42,7 @@ namespace Elearning.Controllers
         {
             var instructor = await _context.Instructors
                 .Include(i => i.CoursesCreated)
+
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (instructor == null) return NotFound();
@@ -51,8 +53,17 @@ namespace Elearning.Controllers
                 Name = instructor.Name,
                 Email = instructor.Email,
                 Password = instructor.Password,
-             
+                CourseIds = instructor.CoursesCreated.Select(c => c.Id).ToList()
+
+
             };
+        }
+
+        [HttpGet("check-email")]
+        public async Task<ActionResult<bool>> CheckEmail([FromQuery] string email)
+        {
+            var instructor = await _context.Instructors.FirstOrDefaultAsync(s => s.Email == email);
+            return Ok(instructor != null);
         }
 
         [HttpPost]

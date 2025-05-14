@@ -16,5 +16,8 @@ namespace Elearning.Models
 
         public List<Course> CoursesEnrolled { get; set; } = new();
         public List<StudentAssignment> AssignmentsSubmitted { get; set; } = new();
+
+        public List<StudentQuiz> QuizzesSubmitted { get; set; } = new();
+
     }
 }

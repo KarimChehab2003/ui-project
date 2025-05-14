@@ -16,7 +16,12 @@
             public DbSet<Administrator> Administrators { get; set; }
             public DbSet<Course> Courses { get; set; }
             public DbSet<Assignment> Assignments { get; set; }
+
+            public DbSet<Quiz> Quizzes { get; set; }
+            public DbSet<Lecture> Lectures { get; set; }
             public DbSet<StudentAssignment> StudentAssignments { get; set; }
+
+            public DbSet<StudentQuiz> StudentQuizzes { get; set; }
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
@@ -39,6 +44,20 @@
                     .HasOne(sa => sa.Assignment)
                     .WithMany(a => a.StudentAssignments)
                     .HasForeignKey(sa => sa.AssignmentId);
+
+                // Many-to-Many: Student ⇄ quiz (Submission)
+                modelBuilder.Entity<StudentQuiz>()
+                    .HasKey(sa => new { sa.StudentId, sa.QuizId });
+
+                modelBuilder.Entity<StudentQuiz>()
+                    .HasOne(sa => sa.Student)
+                    .WithMany(s => s.QuizzesSubmitted)
+                    .HasForeignKey(sa => sa.StudentId);
+
+                modelBuilder.Entity<StudentQuiz>()
+                    .HasOne(sa => sa.Quiz)
+                    .WithMany(a => a.StudentQuizzes)
+                    .HasForeignKey(sa => sa.QuizId);
             }
         }
     }

@@ -25,6 +25,8 @@ namespace Elearning.Controllers
                 .Include(c => c.Instructor)
                 .Include(c => c.StudentsEnrolled)
                 .Include(c => c.Assignments)
+                .Include(c => c.Quizzes)
+                .Include(c=>c.lectures)
                 .Select(c => new CourseDTO
                 {
                     Id = c.Id,
@@ -37,6 +39,8 @@ namespace Elearning.Controllers
                     SectionCount = c.SectionCount,
                     LectureCount = c.LectureCount,
                     Level = c.Level
+                    lectureIDS = c.lectures.Select(a => a.Id).ToList(),
+                    QuizIds = c.Quizzes.Select(a => a.Id).ToList(),
                 })
                 .ToListAsync();
 
@@ -50,6 +54,8 @@ namespace Elearning.Controllers
                 .Include(c => c.Instructor)
                 .Include(c => c.StudentsEnrolled)
                 .Include(c => c.Assignments)
+                .Include(c => c.Quizzes)
+                .Include(c => c.lectures)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (course == null) return NotFound();
@@ -66,6 +72,8 @@ namespace Elearning.Controllers
                 SectionCount = course.SectionCount,
                 LectureCount = course.LectureCount,
                 Level = course.Level
+                lectureIDS = course.lectures.Select(a=>a.Id).ToList(),
+                QuizIds = course.Quizzes.Select(a => a.Id).ToList()
             };
         }
 
@@ -101,6 +109,8 @@ namespace Elearning.Controllers
                 SectionCount = course.SectionCount,
                 LectureCount = course.LectureCount,
                 Level = course.Level
+                lectureIDS = course.lectures.Select(a => a.Id).ToList(),
+                QuizIds = course.Quizzes.Select(a => a.Id).ToList()
             });
 
         }

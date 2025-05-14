@@ -20,12 +20,12 @@
             <h1>Create Account</h1>
             <form class="signup-form" (submit)="signUpPressed()">
                 <input type="text" placeholder="Name" name="name" [(ngModel)]="name" required />
-                <select [(ngModel)]="role" name="role" required>
+                <select [(ngModel)]="role" name="role" required id="role-select">
                     <option value="" disabled selected>Role</option>
                     <option value="student">Student</option>
                     <option value="instructor">Instructor</option>
                 </select>
-                <input [(ngModel)]="email" name="email" type="email" placeholder="Email" required />
+                <input [(ngModel)]="email" name="email" placeholder="Email" required />
                 <div class="password-wrapper">
                 <input
                     type="password"

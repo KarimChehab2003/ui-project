@@ -1,1 +1,95 @@
-<p>instructor-course works!</p>
+<div class="instructor-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="user-info">
+        <span class="user-avatar"><i class="fas fa-user"></i></span>
+        <div>
+          <div class="welcome">Welcome</div>
+          <div class="username">{{loggedInInstructor}}</div>
+        </div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <button class="sidebar-btn" (click)="goToInstructorPage()">
+            <i class="fas fa-plus-circle"></i> Create Course
+          </button>
+        </li>
+        <li>
+          <div class="sidebar-expandable" (click)="toggleCourses()">
+            <i class="fas fa-book"></i> My Courses
+            <i class="fas" [ngClass]="{ 'fa-chevron-down': coursesExpanded, 'fa-chevron-right': !coursesExpanded }"></i>
+          </div>
+          <ul class="courses-list" *ngIf="coursesExpanded">
+            <!-- <li
+              *ngFor="let course of courses"
+              [class.selected]="selectedCourse === course"
+              (click)="selectCourse(course, $event)"
+            >
+              {{ course.name }}
+            </li> -->
+          </ul>
+        </li>
+        <li>
+          <button class="sidebar-btn" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="main-header">
+      <div class="app-title">LMS</div>
+    </header>
+    <section class="course-section" *ngIf="selectedCourse">
+      <h1>{{ selectedCourse.name }}</h1>
+      <div class="course-content">
+        <div class="course-card">
+          <div class="card-title">
+            <i class="fas fa-book-reader"></i> Course Material
+          </div>
+          <div class="card-section">
+            <div class="section-title">Lectures</div>
+            <ul>
+              <li *ngFor="let lecture of selectedCourse.lectures">
+                {{ lecture }}
+              </li>
+            </ul>
+            <div class="add-action">
+              Add Lecture <i class="fas fa-plus-circle"></i>
+            </div>
+          </div>
+        </div>
+        <div class="course-card">
+          <div class="card-title">
+            <i class="fas fa-clipboard-list"></i> Assessments
+          </div>
+          <div class="card-section">
+            <div class="section-title">Assignments</div>
+            <ul>
+              <li *ngFor="let assignment of selectedCourse.assignments">
+                {{ assignment }}
+              </li>
+            </ul>
+            <div class="add-action">
+              Add Assignment <i class="fas fa-plus-circle"></i>
+            </div>
+            <div class="section-title">Quizzes</div>
+            <ul>
+              <li *ngFor="let quiz of selectedCourse.quizzes">{{ quiz }}</li>
+            </ul>
+            <div class="add-action">
+              Add Quiz <i class="fas fa-plus-circle"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="enrolled-btn">Enrolled Students and Grades</button>
+    </section>
+  </main>
+</div>
