@@ -22,9 +22,9 @@
             <i class="fas fa-book"></i> My Courses
             <i class="fas" [ngClass]="{ 'fa-chevron-down': coursesExpanded, 'fa-chevron-right': !coursesExpanded }"></i>
           </div>
-          <ul class="courses-list" *ngIf="coursesExpanded">
+          <ul class="courses-list" [ngStyle]="{ 'margin': '20px' }" *ngIf="coursesExpanded">
             <li *ngFor="let course of instructorCourses" [class.selected]="selectedCourse === course" (click)="selectCourse(course)">
-              {{ course.name }}
+              <p [ngStyle]="{ 'padding-left': '10px' }">{{ course.name }}</p>
             </li>
           </ul>
         </li>
@@ -52,8 +52,8 @@
           <div class="card-section">
             <div class="section-title">Lectures</div>
             <ul>
-              <li *ngFor="let lecture of selectedCourse.lectures">
-                {{ lecture }}
+              <li *ngFor="let lecture of selectedCourse?.lectures ?? []">
+                {{ lecture?.name }}
               </li>
             </ul>
             <div class="add-action">
@@ -68,8 +68,8 @@
           <div class="card-section">
             <div class="section-title">Assignments</div>
             <ul>
-              <li *ngFor="let assignment of selectedCourse.assignments">
-                {{ assignment }}
+              <li *ngFor="let assignment of selectedCourse?.assignments ?? []">
+                {{ assignment?.name }}
               </li>
             </ul>
             <div class="add-action">
@@ -77,7 +77,9 @@
             </div>
             <div class="section-title">Quizzes</div>
             <ul>
-              <li *ngFor="let quiz of selectedCourse.quizzes">{{ quiz }}</li>
+              <li *ngFor="let quiz of selectedCourse?.quizzes ?? []">
+                {{ quiz?.name }}
+              </li>
             </ul>
             <div class="add-action">
               Add Quiz <i class="fas fa-plus-circle"></i>

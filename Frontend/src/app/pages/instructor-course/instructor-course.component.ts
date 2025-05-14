@@ -23,6 +23,7 @@ export class InstructorCourseComponent implements OnInit {
   instructorCourses : Courses[] = [];
 
   ngOnInit(): void {
+
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const user = JSON.parse(storedUser);
@@ -37,6 +38,7 @@ export class InstructorCourseComponent implements OnInit {
         }
       }
     );
+
     }
   }
 
