@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, map, switchMap } from 'rxjs';
+import { forkJoin, map, switchMap, Observable } from 'rxjs';
 import { Courses } from '../../models/courses';
 import { Assignment } from '../../models/assignment';
 import { Quiz } from '../../models/quiz';
@@ -72,6 +72,36 @@ export class InstructorService {
         return forkJoin(courseRequests);
       })
     );
+  }
+
+  addLecture(courseId: number, name: string, description: string): Observable<Lecture> {
+    const lecture = {
+      title: name,
+      description: description,
+      courseId: courseId
+    };
+
+    return this.http.post<Lecture>(`${this.baseUrl}/lectures`, lecture);
+  }
+
+  addAssignment(courseId: number, name: string, description: string): Observable<Assignment> {
+    const Assignment = {
+      title: name,
+      description: description,
+      courseId: courseId
+    };
+
+    return this.http.post<Assignment>(`${this.baseUrl}/assignments`, Assignment);
+  }
+
+  addQuiz(courseId: number, name: string, description: string): Observable<Quiz> {
+    const Quiz = {
+      title: name,
+      description: description,
+      courseId: courseId
+    };
+
+    return this.http.post<Quiz>(`${this.baseUrl}/Quiz`, Quiz);
   }
 
 }
