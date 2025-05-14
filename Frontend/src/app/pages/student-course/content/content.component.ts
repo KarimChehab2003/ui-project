@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './content.component.css'
 })
 export class ContentComponent {
-
+  
 }

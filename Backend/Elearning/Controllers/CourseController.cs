@@ -32,7 +32,11 @@ namespace Elearning.Controllers
                     Description = c.Description,
                     InstructorId = c.InstructorId,
                     StudentIds = c.StudentsEnrolled.Select(s => s.Id).ToList(),
-                    AssignmentIds = c.Assignments.Select(a => a.Id).ToList()
+                    AssignmentIds = c.Assignments.Select(a => a.Id).ToList(),
+                    DurationInHours = c.DurationInHours,
+                    SectionCount = c.SectionCount,
+                    LectureCount = c.LectureCount,
+                    Level = c.Level
                 })
                 .ToListAsync();
 
@@ -58,6 +62,10 @@ namespace Elearning.Controllers
                 InstructorId = course.InstructorId,
                 StudentIds = course.StudentsEnrolled.Select(s => s.Id).ToList(),
                 AssignmentIds = course.Assignments.Select(a => a.Id).ToList()
+                DurationInHours = course.DurationInHours,
+                SectionCount = course.SectionCount,
+                LectureCount = course.LectureCount,
+                Level = course.Level
             };
         }
 
@@ -71,7 +79,11 @@ namespace Elearning.Controllers
             {
                 Title = courseDto.Title,
                 Description = courseDto.Description,
-                InstructorId = courseDto.InstructorId
+                InstructorId = courseDto.InstructorId,
+                DurationInHours = courseDto.DurationInHours,
+                SectionCount = courseDto.SectionCount,
+                LectureCount = courseDto.LectureCount,
+                Level = courseDto.Level
             };
 
             _context.Courses.Add(course);
@@ -84,7 +96,11 @@ namespace Elearning.Controllers
                 Description = course.Description,
                 InstructorId = course.InstructorId,
                 StudentIds = course.StudentsEnrolled.Select(s => s.Id).ToList(),
-                AssignmentIds = course.Assignments.Select(a => a.Id).ToList()
+                AssignmentIds = course.Assignments.Select(a => a.Id).ToList(),
+                DurationInHours = course.DurationInHours,
+                SectionCount = course.SectionCount,
+                LectureCount = course.LectureCount,
+                Level = course.Level
             });
 
         }
@@ -98,6 +114,10 @@ namespace Elearning.Controllers
             course.Title = courseDto.Title;
             course.Description = courseDto.Description;
             course.InstructorId = courseDto.InstructorId;
+            course.DurationInHours = courseDto.DurationInHours;
+            course.SectionCount = courseDto.SectionCount;
+            course.LectureCount = courseDto.LectureCount;
+            course.Level = courseDto.Level;
 
 
             await _context.SaveChangesAsync();
