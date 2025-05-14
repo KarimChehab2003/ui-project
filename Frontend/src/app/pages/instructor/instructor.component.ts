@@ -2,6 +2,7 @@ import { Component , OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { InstructorService } from '../../services/instructor/instructor.service';
 
 @Component({
   selector: 'app-instructor',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 
 export class InstructorComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router , private instructorService : InstructorService) {}
 
   loggedInInstructor: string = '';
 

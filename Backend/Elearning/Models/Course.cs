@@ -21,5 +21,7 @@ namespace Elearning.Models
         public List<Assignment> Assignments { get; set; } = new();
 
         public List<Quiz> Quizzes { get; set; } = new();
+
+        public ICollection<Lecture> Lectures { get; set; } = new List<Lecture>();
     }
 }

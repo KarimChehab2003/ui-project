@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Courses } from '../../models/courses';
 import { Router } from '@angular/router';
+import { InstructorService } from '../../services/instructor/instructor.service';
 
 @Component({
   selector: 'app-instructor-course',
@@ -14,17 +15,20 @@ import { Router } from '@angular/router';
 
 export class InstructorCourseComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router , private instructorService : InstructorService) {}
 
   loggedInInstructor: string = '';
   coursesExpanded = true;
   selectedCourse: Courses | null = null;
+  instructorCourses : Courses[] = [];
 
   ngOnInit(): void {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const user = JSON.parse(storedUser);
       this.loggedInInstructor = user.name;
+
+      // this.instructorCourses = this.instructorService.getInstructorCourses(user.id)
     }
   }
 
