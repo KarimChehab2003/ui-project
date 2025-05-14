@@ -52,7 +52,7 @@
               <img src="assets/image_9388870d.png" class="welcome-box" />
               <p class="welcome-message-style">Welcome</p>
             </div>
-            <p class="welcome-message">{{loggedInUser.name}}</p>
+            <p class="welcome-message">{{loggedInUser?.name}}</p>
           </div>
         </div>
         <div class="vertical-menu-container">
@@ -96,12 +96,12 @@
           <div class="enrolled-courses-container">
             <p class="enrolled-courses-heading">📚 Enrolled Courses</p>
             <div class="course-card-container1" >
-              <div class="course-card-container" >
+              <div class="course-card-container" *ngFor = "let course in studentCourses | async" >
                 <div class="course-info-container1">
                   <img src="assets/image_d51261dc.png" class="avatar-image-container" />
                   <div class="course-info-container">
-                    <p class="course-title-section">course title</p>
-                    <p class="instructor-details">Instructor</p>
+                    <p class="course-title-section">{{course.name}}</p>
+                    <p class="instructor-details">{{this.getInstructor(course)?.name}}</p>
                   </div>
                 </div>
                 <div class="progress-bar-container">

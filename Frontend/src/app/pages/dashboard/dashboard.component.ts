@@ -5,6 +5,11 @@ import { DashboardOverviewComponent } from './dashboardOverview/dashboard-overvi
 import { ActivityDashboardViewerComponent } from './ActivtiyDashBoardView/activity-dashboard-viewer/activity-dashboard-viewer.component';
 import { CommonModule } from '@angular/common';
 import { Student } from '../../models/student';
+import { StudentCourseService } from '../../services/student-course/student-course.service';
+import { Courses } from '../../models/courses';
+import { BehaviorSubject } from 'rxjs';
+import { InstructorService } from '../../services/instructor/instructor.service';
+import { Instructor } from '../../models/instructor';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -14,14 +19,35 @@ import { Student } from '../../models/student';
 })
 export class DashboardComponent {
 
- loggedInUser:Student = new Student(0,'','','',[]);
+public loggedInUser: Student | null = null;
 
+public studentCourses:BehaviorSubject<Courses[]>|null = null;
 
-constructor(){
+constructor(private studentCourseService:StudentCourseService , private instructorService:InstructorService){
   
-let userData = localStorage.getItem('user');
+this.loadUser();
 
-this.loggedInUser = userData ? JSON.parse(userData) : null;
+this.studentCourseService.loadUser();
+
+this.studentCourseService.enrolledCourses.subscribe(
+
+courses =>{this.studentCourses?.next(courses)}
+
+);
+
+this.studentCourseService.fetchCourses();
+}
+
+
+  loadUser(){
+    const retrievedUser = localStorage.getItem("user")
+    this.loggedInUser = retrievedUser ? JSON.parse(retrievedUser) as Student : null;
+  }
+
+getInstructor(course:Courses):Instructor|null{
+
+return this.instructorService.getInstructor(course.instructorId);
+
 }
 
 
