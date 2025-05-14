@@ -28,7 +28,15 @@ export class InstructorCourseComponent implements OnInit {
       const user = JSON.parse(storedUser);
       this.loggedInInstructor = user.name;
 
-      // this.instructorCourses = this.instructorService.getInstructorCourses(user.id)
+      this.instructorService.getInstructorCourses(user.id).subscribe(
+      (courses: Courses[]) => {
+        this.instructorCourses = courses;
+
+        if (this.instructorCourses.length > 0) {
+          this.selectedCourse = this.instructorCourses[0];
+        }
+      }
+    );
     }
   }
 
