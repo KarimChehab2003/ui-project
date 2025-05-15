@@ -122,7 +122,8 @@ export class AdminService {
   }
 
   getPendingStudents(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/studentsPending`);
+    const endpoint = `${this.baseUrl}/studentsPending`;
+    return this.http.get(endpoint);
   }
 
   approveStudent(student: any): Observable<any> {
