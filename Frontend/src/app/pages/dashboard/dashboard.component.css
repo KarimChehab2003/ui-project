@@ -107,17 +107,18 @@
   justify-content: center;
   background: #1e293b;
 }
+
 .dashboard-container {
   box-sizing: border-box;
   display: flex;
   flex: 0 0 auto;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 97px;
-  /* padding-right: 22.5px; */
   background: #334155;
 }
+
 .svg-container {
   display: flex;
   flex: 0 0 auto;
@@ -303,7 +304,7 @@
   flex-direction: row;
   gap: 77px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   margin-top: 65px;
 }
