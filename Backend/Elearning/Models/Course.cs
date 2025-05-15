@@ -12,9 +12,9 @@ namespace Elearning.Models
 
         [Required]
         public string Description { get; set; }
-        
+
         // Added these attributes for more details
-        public int DurationInHours { get; set; }
+        public int? DurationInHours { get; set; }
         public string Level { get; set; }
         public int SectionCount { get; set; }
         public int LectureCount { get; set; }
