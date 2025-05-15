@@ -38,7 +38,7 @@ namespace Elearning.Controllers
                     DurationInHours = c.DurationInHours,
                     SectionCount = c.SectionCount,
                     LectureCount = c.LectureCount,
-                    Level = c.Level
+                    Level = c.Level,
                     lectureIDS = c.lectures.Select(a => a.Id).ToList(),
                     QuizIds = c.Quizzes.Select(a => a.Id).ToList(),
                 })
@@ -67,11 +67,11 @@ namespace Elearning.Controllers
                 Description = course.Description,
                 InstructorId = course.InstructorId,
                 StudentIds = course.StudentsEnrolled.Select(s => s.Id).ToList(),
-                AssignmentIds = course.Assignments.Select(a => a.Id).ToList()
+                AssignmentIds = course.Assignments.Select(a => a.Id).ToList(),
                 DurationInHours = course.DurationInHours,
                 SectionCount = course.SectionCount,
                 LectureCount = course.LectureCount,
-                Level = course.Level
+                Level = course.Level,
                 lectureIDS = course.lectures.Select(a=>a.Id).ToList(),
                 QuizIds = course.Quizzes.Select(a => a.Id).ToList()
             };
@@ -108,7 +108,7 @@ namespace Elearning.Controllers
                 DurationInHours = course.DurationInHours,
                 SectionCount = course.SectionCount,
                 LectureCount = course.LectureCount,
-                Level = course.Level
+                Level = course.Level,
                 lectureIDS = course.lectures.Select(a => a.Id).ToList(),
                 QuizIds = course.Quizzes.Select(a => a.Id).ToList()
             });
