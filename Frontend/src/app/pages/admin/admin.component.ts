@@ -50,6 +50,8 @@ export class AdminComponent implements OnInit {
   newCourse: Course = new Course(0, '', '', '', 0, 0, '', '');
   editingCourse: Course | null = null;
 
+  pendingStudents: any[] = [];
+
   constructor(private adminService: AdminService) {}
 
   ngOnInit() {
@@ -73,6 +75,10 @@ export class AdminComponent implements OnInit {
     document
       .querySelector(`[data-section="${sectionId}"]`)
       ?.classList.add('active');
+
+    if (sectionId === 'approve-students') {
+      this.getPendingStudents();
+    }
   }
 
   // Search functionality
@@ -105,7 +111,6 @@ export class AdminComponent implements OnInit {
       next: (students) => {
         const studentArray = students?.$values ?? students;
         this.students = studentArray;
-        console.log('Students array:', this.students);
         this.displayAssignments(); // Update assignments table
       },
       error: (error) => {
@@ -611,5 +616,40 @@ export class AdminComponent implements OnInit {
   getInstructorNameById(id: number): string {
     const instructor = this.instructors.find((i) => i.id === id);
     return instructor ? instructor.name.toString() : 'Unknown Instructor';
+  }
+
+  getPendingStudents() {
+    this.adminService.getPendingStudents().subscribe({
+      next: (students) => {
+        this.pendingStudents = students?.$values ?? students;
+      },
+      error: (error) => {
+        alert(
+          'Error fetching pending students: ' +
+            (error.error?.message || error.message)
+        );
+      },
+    });
+  }
+
+  approveStudent(student: any) {
+    this.adminService.approveStudent(student).subscribe({
+      next: () => {
+        this.adminService.removePendingStudent(student.id).subscribe({
+          next: () => this.getPendingStudents(),
+          error: (error) => {
+            alert(
+              'Error removing pending student: ' +
+                (error.error?.message || error.message)
+            );
+          },
+        });
+      },
+      error: (error) => {
+        alert(
+          'Error approving student: ' + (error.error?.message || error.message)
+        );
+      },
+    });
   }
 }

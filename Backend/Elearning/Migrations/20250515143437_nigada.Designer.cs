@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Elearning.Migrations
 {
     [DbContext(typeof(ElearningContext))]
-    [Migration("20250515120745_mig1")]
-    partial class mig1
+    [Migration("20250515143437_nigada")]
+    partial class nigada
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -21,6 +21,13 @@
           <i class="fas fa-tasks"></i>
           <span>Course Assignments</span>
         </li>
+        <li
+          data-section="approve-students"
+          (click)="switchSection('approve-students')"
+        >
+          <i class="fas fa-user-check"></i>
+          <span>Approve Students</span>
+        </li>
       </ul>
     </nav>
 
@@ -138,7 +145,7 @@
               <tr>
                 <th>Course ID</th>
                 <th>Course Name</th>
-                <th>Instructor</th>
+                <th>Instructor ID</th>
                 <th>Duration</th>
                 <th>Actions</th>
               </tr>
@@ -224,6 +231,33 @@
               </table>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- Approve Students Section -->
+      <section id="approve-students" class="section">
+        <h2>Approve Students</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of pendingStudents">
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>
+                  <button class="btn primary" (click)="approveStudent(student)">
+                    Approve
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
     </main>

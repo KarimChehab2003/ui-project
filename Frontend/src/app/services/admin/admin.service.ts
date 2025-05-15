@@ -120,4 +120,16 @@ export class AdminService {
     const endpoint = `${this.baseUrl}/Course`;
     return this.http.get(endpoint);
   }
+
+  getPendingStudents(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/studentsPending`);
+  }
+
+  approveStudent(student: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/students`, student);
+  }
+
+  removePendingStudent(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/studentsPending/${id}`);
+  }
 }
