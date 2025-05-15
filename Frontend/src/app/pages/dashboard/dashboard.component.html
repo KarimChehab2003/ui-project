@@ -101,7 +101,7 @@
                   <img src="assets/image_d51261dc.png" class="avatar-image-container" />
                   <div class="course-info-container">
                     <p class="course-title-section">{{course.name}}</p>
-                    <p class="instructor-details">{{this.getInstructor(course)?.name}}</p>
+                    <p class="instructor-details">{{this.courseInstructorMap.get(course.id)}}</p>
                   </div>
                 </div>
                 <div class="progress-bar-container">
