@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Elearning.Migrations
 {
     [DbContext(typeof(ElearningContext))]
-    [Migration("20250513222735_demo2")]
-    partial class demo2
+    [Migration("20250515120745_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,7 +104,20 @@ namespace Elearning.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("DurationInHours")
+                        .HasColumnType("int");
+
                     b.Property<int>("InstructorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LectureCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Level")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SectionCount")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -216,6 +229,32 @@ namespace Elearning.Migrations
                     b.ToTable("StudentAssignments");
                 });
 
+            modelBuilder.Entity("Elearning.Models.StudentPending", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StudentsPending");
+                });
+
             modelBuilder.Entity("Elearning.Models.StudentQuiz", b =>
                 {
                     b.Property<int>("StudentId")
@@ -232,6 +271,32 @@ namespace Elearning.Migrations
                     b.HasIndex("QuizId");
 
                     b.ToTable("StudentQuizzes");
+                });
+
+            modelBuilder.Entity("Lecture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Lectures");
                 });
 
             modelBuilder.Entity("CourseStudent", b =>
@@ -320,6 +385,17 @@ namespace Elearning.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("Lecture", b =>
+                {
+                    b.HasOne("Elearning.Models.Course", "Course")
+                        .WithMany("lectures")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("Elearning.Models.Assignment", b =>
                 {
                     b.Navigation("StudentAssignments");
@@ -330,6 +406,8 @@ namespace Elearning.Migrations
                     b.Navigation("Assignments");
 
                     b.Navigation("Quizzes");
+
+                    b.Navigation("lectures");
                 });
 
             modelBuilder.Entity("Elearning.Models.Instructor", b =>

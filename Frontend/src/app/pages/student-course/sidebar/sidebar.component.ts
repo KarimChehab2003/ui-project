@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Student } from '../../../models/student';
+import { StudentCourseService } from '../../../services/student-course/student-course.service';
+
 @Component({
   selector: 'app-sidebar',
   imports: [],
@@ -8,8 +10,16 @@ import { Student } from '../../../models/student';
 })
 export class SidebarComponent {
   user: Student | null = null;
- constructor() {
-  const retrievedUser = localStorage.getItem("user")
-  this.user = retrievedUser ? JSON.parse(retrievedUser) as Student : null;
+  courses: any[] = []
+
+ constructor(private studentCourseService : StudentCourseService) {
+  this.user = this.studentCourseService.getUser();
+  this.studentCourseService.enrolledCourses.subscribe((courses)=>this.courses = courses)
+  console.log("THIS IS COURSES :",this.courses)
  }
+
+ handleSelect(course:any){
+  this.studentCourseService.selectedCourse.next(course);
+ }
+
 }

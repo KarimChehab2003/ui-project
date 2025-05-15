@@ -1,13 +1,14 @@
+@if (selectedCourse) {
 <section>
     <div style="display: inline-block;">
         <div class="course-overview-card">
             <div class="course-card-widget">
                 <div class="course-card">
-                    <p class="course-title-text-style">Course 1</p>
-                    <p class="instructor-details-style">Instructor Name</p>
+                    <p class="course-title-text-style">{{selectedCourse.title}}</p>
+                    <p class="instructor-details-style">Instructor Name: {{instructorName}}</p>
                 </div>
                 <div class="progress-info-container">
-                    <img src="assets/image_6b155bbf.png" class="progress-bar" />
+                    <input type="range" class="progress-bar" disabled value="80" />
                     <p class="progress-bar-label">80% Completed</p>
                 </div>
             </div>
@@ -18,17 +19,17 @@
                         <div class="course-details-container">
                             <div class="course-details-container1">
                                 <ul class="course-details-list">
-                                    <li>10 Sections / 50 Lectures&nbsp;&nbsp;</li>
+                                    <li>{{selectedCourse.sectionCount}} Sections / {{selectedCourse.lectureCount}} Lectures&nbsp;&nbsp;</li>
                                 </ul>
                             </div>
                             <div class="course-details-container1">
                                 <ul class="course-details-list">
-                                    <li>Duration: 20 hours</li>
+                                    <li>Duration: {{selectedCourse.durationInHours}} hours</li>
                                 </ul>
                             </div>
                             <div class="course-details-section">
                                 <ul class="course-details-list">
-                                    <li>Level: Intermediate&nbsp;</li>
+                                    <li>Level: {{selectedCourse.level}}&nbsp;</li>
                                 </ul>
                             </div>
                         </div>
@@ -42,10 +43,10 @@
                                         Section 1: Intro (3/3 Lectures ✅)
                                         <ul class="course-details-list">
                                             <li>Lecture 1.1 - Overview</li>
-                                            <li>Lecture 1.2 - HTML Basics</li>
+                                            <li>Lecture 2 - Introduction about {{selectedCourse.title}}</li>
                                         </ul>
                                     </li>
-                                    <li>Section 2: CSS Fundamentals (2/4 Lectures 🟨)</li>
+                                    <li>Section 2: Fundamentals (2/4 Lectures 🟨)</li>
                                 </ul>
                             </div>
                         </div>
@@ -55,7 +56,7 @@
                         <div class="card-container-with-questions">
                             <div class="main-content-container">
                                 <ul class="course-details-list">
-                                    <li>&quot;Can someone explain Flexbox?&quot; [Reply]</li>
+                                    <li>&quot;Can someone explain Lecture 1?&quot; [Reply]</li>
                                 </ul>
                             </div>
                             <div class="quiz-section-text-style">
@@ -134,3 +135,9 @@
         </div>
     </div>
 </section>
+} @else {
+<div style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;margin-left: 50px;">
+    <p>Select a course from the side list to display its information</p>
+
+</div>
+}

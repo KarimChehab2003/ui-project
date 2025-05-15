@@ -18,18 +18,14 @@
           </button>
         </li>
         <li>
-          <div class="sidebar-expandable" (click)="toggleCourses()">
+          <div class="sidebar-expandable selectedTab" (click)="toggleCourses()">
             <i class="fas fa-book"></i> My Courses
             <i class="fas" [ngClass]="{ 'fa-chevron-down': coursesExpanded, 'fa-chevron-right': !coursesExpanded }"></i>
           </div>
-          <ul class="courses-list" *ngIf="coursesExpanded">
-            <!-- <li
-              *ngFor="let course of courses"
-              [class.selected]="selectedCourse === course"
-              (click)="selectCourse(course, $event)"
-            >
-              {{ course.name }}
-            </li> -->
+          <ul class="courses-list" [ngStyle]="{ 'margin': '20px' }" *ngIf="coursesExpanded">
+            <li *ngFor="let course of instructorCourses" [class.selected]="selectedCourse === course" (click)="selectCourse(course)">
+              <p [ngStyle]="{ 'padding-left': '10px' }">{{ course.name }}</p>
+            </li>
           </ul>
         </li>
         <li>
@@ -56,11 +52,11 @@
           <div class="card-section">
             <div class="section-title">Lectures</div>
             <ul>
-              <li *ngFor="let lecture of selectedCourse.lectures">
-                {{ lecture }}
+              <li *ngFor="let lecture of selectedCourse?.lectures ?? []">
+                {{ lecture?.name }}
               </li>
             </ul>
-            <div class="add-action">
+            <div class="add-action" (click)="showAddLectureForm = true">
               Add Lecture <i class="fas fa-plus-circle"></i>
             </div>
           </div>
@@ -72,18 +68,20 @@
           <div class="card-section">
             <div class="section-title">Assignments</div>
             <ul>
-              <li *ngFor="let assignment of selectedCourse.assignments">
-                {{ assignment }}
+              <li *ngFor="let assignment of selectedCourse?.assignments ?? []">
+                {{ assignment?.name }}
               </li>
             </ul>
-            <div class="add-action">
+            <div class="add-action" [ngStyle]="{ 'margin-bottom': '10px' }" (click)="showAddAssignmentForm = true">
               Add Assignment <i class="fas fa-plus-circle"></i>
             </div>
             <div class="section-title">Quizzes</div>
             <ul>
-              <li *ngFor="let quiz of selectedCourse.quizzes">{{ quiz }}</li>
+              <li *ngFor="let quiz of selectedCourse?.quizzes ?? []">
+                {{ quiz?.name }}
+              </li>
             </ul>
-            <div class="add-action">
+            <div class="add-action" (click)="showAddQuizForm = true">
               Add Quiz <i class="fas fa-plus-circle"></i>
             </div>
           </div>
@@ -92,4 +90,71 @@
       <button class="enrolled-btn">Enrolled Students and Grades</button>
     </section>
   </main>
+</div>
+
+<!-- Forms -->
+<div class="modal" *ngIf="showAddLectureForm">
+  <div class="modal-content">
+    <h2>Add New Lecture</h2>
+    <form (submit)="addLecture()">
+
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="newLectureName" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" [(ngModel)]="newLectureDesc" required />
+      </div>
+
+      <button class="enrolled-btn" type="submit">Submit</button>
+      <button class="enrolled-btn" [ngStyle]="{ 'background-color': 'red' }" (click)="showAddLectureForm = false">Cancel</button>
+
+    </form>
+  </div>
+</div>
+
+<div class="modal" *ngIf="showAddAssignmentForm">
+  <div class="modal-content">
+    <h2>Add New Assignment</h2>
+    <form (submit)="addAssignment()">
+
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="newAssignmentName" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" [(ngModel)]="newAssignmentDesc" required />
+      </div>
+
+      <button class="enrolled-btn" type="submit">Submit</button>
+      <button class="enrolled-btn" [ngStyle]="{ 'background-color': 'red' }" (click)="showAddAssignmentForm = false">Cancel</button>
+
+    </form>
+  </div>
+</div>
+
+<div class="modal" *ngIf="showAddQuizForm">
+  <div class="modal-content">
+    <h2>Add New Quiz</h2>
+    <form (submit)="addQuiz()">
+
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="newQuizName" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" [(ngModel)]="newQuizDesc" required />
+      </div>
+
+      <button class="enrolled-btn" type="submit">Submit</button>
+      <button class="enrolled-btn" [ngStyle]="{ 'background-color': 'red' }" (click)="showAddQuizForm = false">Cancel</button>
+
+    </form>
+  </div>
 </div>

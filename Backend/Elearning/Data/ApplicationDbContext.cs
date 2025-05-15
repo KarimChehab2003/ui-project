@@ -12,6 +12,8 @@
             public ElearningContext(DbContextOptions<ElearningContext> options) : base(options) { }
 
             public DbSet<Student> Students { get; set; }
+
+            public DbSet<StudentPending> StudentsPending { get; set; }
             public DbSet<Instructor> Instructors { get; set; }
             public DbSet<Administrator> Administrators { get; set; }
             public DbSet<Course> Courses { get; set; }
