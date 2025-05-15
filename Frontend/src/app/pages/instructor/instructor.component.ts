@@ -17,13 +17,58 @@ export class InstructorComponent implements OnInit {
   constructor(private router: Router , private instructorService : InstructorService) {}
 
   loggedInInstructor: string = '';
+  loggedInInstructorId: number = 0;
+
+  CourseName : string = '';
+  CourseDesc : string = '';
+  CourseDuration : string = '';
+  CourseLevel : string = '';
+  CourseLecCount : string = '';
+  CourseSecCount : string = '';
 
   ngOnInit(): void {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const user = JSON.parse(storedUser);
       this.loggedInInstructor = user.name;
+      this.loggedInInstructorId = user.id;
     }
+  }
+
+  addCourse(){
+
+    if (
+      !this.CourseName.trim() ||
+      !this.CourseDesc.trim() ||
+      !this.CourseDuration.trim() ||
+      !this.CourseLevel.trim() ||
+      !this.CourseLecCount.trim() ||
+      !this.CourseSecCount.trim()
+    ) {
+      alert("Please fill in all course fields before submitting.");
+      return;
+    }
+
+    this.instructorService.addCourse(this.loggedInInstructorId, this.CourseName , this.CourseDesc , this.CourseDuration , this.CourseLevel , this.CourseLecCount, this.CourseSecCount)
+    .subscribe(response => {
+      this.CourseName = '';
+      this.CourseDesc = '';
+      this.CourseDuration = '';
+      this.CourseLevel = '';
+      this.CourseLecCount = '';
+      this.CourseSecCount = '';
+      alert("Course has been added successfully!");
+    });
+    
+  }
+
+  clear(){
+    this.CourseName = '';
+    this.CourseDesc = '';
+    this.CourseDuration = '';
+    this.CourseLevel = '';
+    this.CourseLecCount = '';
+    this.CourseSecCount = '';
   }
 
   goToMyCourses(){

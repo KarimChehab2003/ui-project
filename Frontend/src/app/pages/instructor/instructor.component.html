@@ -35,7 +35,48 @@
     <!-- Main Content -->
     <main class="main-content">
         <header class="main-header">
-        <div class="app-title">LMS</div>
+            <div class="app-title">LMS</div>
         </header>
+
+        <div class="modal">
+            <div class="modal-content">
+                <h2>Add New Course</h2>
+                <form (submit)="addCourse()">
+
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" [(ngModel)]="CourseName" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" name="description" [(ngModel)]="CourseDesc" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duration">Duration In Hours:</label>
+                        <input type="number" id="duration" name="duration" [(ngModel)]="CourseDuration" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Level">Level:</label>
+                        <input type="string" id="Level" name="Level" [(ngModel)]="CourseLevel" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lectures">Lectures Count:</label>
+                        <input type="number" id="lectures" name="lectures" [(ngModel)]="CourseLecCount" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sections">Sections Count:</label>
+                        <input type="number" id="sections" name="sections" [(ngModel)]="CourseSecCount" required />
+                    </div>
+
+                    <button class="enrolled-btn" type="submit">Submit</button>
+                </form>
+                <button class="enrolled-btn" [ngStyle]="{ 'background-color': 'red' }" (click)="clear()">Clear</button>
+            </div>
+        </div>
     </main>
 </div>

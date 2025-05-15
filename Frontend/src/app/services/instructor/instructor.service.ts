@@ -104,4 +104,22 @@ export class InstructorService {
     return this.http.post<Quiz>(`${this.baseUrl}/Quiz`, Quiz);
   }
 
+  addCourse( instructorId: number, title: string, description: string, duration: string, level: string, lectureCount: string, sectionCount: string ) {
+    const body = {
+      title: title,
+      description: description,
+      durationInHours: parseInt(duration),
+      level: level,
+      sectionCount: parseInt(sectionCount),
+      lectureCount: parseInt(lectureCount),
+      instructorId: instructorId,
+      studentIds: [],
+      assignmentIds: [],
+      lectureIDS: [],
+      quizIds: [],
+    };
+
+    return this.http.post(`${this.baseUrl}/Course`, body);
+  }
+
 }
