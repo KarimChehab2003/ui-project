@@ -116,16 +116,23 @@
    
           <div class="dashboard-container">
             <div class="activity-panel">
-              <p class="activity-section-title">🏃‍♂️ Recent Activities</p>
+             <!-- <p class="activity-section-title">🏃‍♂️ Recent Activities</p>-->
+              <p class="activity-section-title" > Material and Quizzes </p>
               <div class="activity-card1">
                 <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
-                <div class="activity-card">
+                <div class="activity-card" *ngFor="let course in this.studentCourses" >
                   <div class="svg-container">
                     <svg viewBox="0 0 48 48" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Icon_7" d="M38.9645,15.0254l-20.576,17.949l-9.353,-8.159" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" /></svg>
                   </div>
-                  <p class="activity-description-text-display-style">Watched “Lecture 3” in Course 1</p>
+                  <h3 class="activity-description-text-display-style"> Lectures</h3>
+                  <p class="activity-description-text-display-style" *ngFor="let courselect in this.getCourseLectures(course.id)">Lecture {{courselect.name}}</p>
+                  <br>
+                   <h3 class="activity-description-text-display-style"> Quizzes</h3>
+                  <p class="activity-description-text-display-style" *ngFor="let coursequiz in this.getCourseQuizzes(course.id)">quiz {{coursequiz.name}}</p>
                 </div>
-                <div class="activity-card">
+
+
+                <!-- <div class="activity-card">
                   <div class="svg-container">
                     <svg viewBox="0 0 48 48" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Icon_8" d="M38.9645,15.0253l-20.576,17.949l-9.353,-8.158" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" /></svg>
                   </div>
@@ -138,7 +145,7 @@
                   <p class="activity-description-text-display-style">Completed Quiz 1 (Course 4)</p>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="activity-panel">
               <p class="activity-section-title">📅 Upcoming Deadlines</p>
               <div class="card-container-with-tasks">

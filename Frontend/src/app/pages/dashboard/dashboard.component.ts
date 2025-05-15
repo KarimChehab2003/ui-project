@@ -10,6 +10,10 @@ import { Courses } from '../../models/courses';
 import { BehaviorSubject } from 'rxjs';
 import { StudentService } from '../../services/student/student.service';
 import { Instructor } from '../../models/instructor';
+import { QuizserviceService } from '../../services/quiz/quizservice.service';
+import { LectureServiceService } from '../../services/lecture/lecture-service.service';
+import { Lecture } from '../../models/lecture';
+import { Quiz } from '../../models/quiz';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -23,7 +27,11 @@ public loggedInUser: Student | null = null;
 
 public studentCourses:BehaviorSubject<Courses[]>|null = null;
 
-constructor(private studentCourseService:StudentCourseService , private studentService:StudentService){
+
+
+constructor(private studentCourseService:StudentCourseService , private studentService:StudentService
+  ,private quizService:QuizserviceService ,private lectureService:LectureServiceService
+){
   
 this.loadUser();
 
@@ -36,6 +44,9 @@ courses =>{this.studentCourses?.next(courses)}
 );
 
 this.studentCourseService.fetchCourses();
+
+
+this.quizService
 }
 
 
@@ -51,4 +62,11 @@ return this.studentService.getInstructor(course.instructorId);
 }
 
 
+getCourseLectures(course:Courses):Lecture[]{
+return this.lectureService.getCourseLectures(course.id);
+}
+
+getCourseQuizzes(course:Courses):Quiz[]{
+  return this.quizService.getCourseQuizzes(course.id);
+}
 }

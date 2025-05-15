@@ -14,7 +14,7 @@ export class QuizserviceService {
 
 
 
-getQuizzes(courseId:number):Quiz[]{
+getCourseQuizzes(courseId:number):Quiz[]{
 
   let courseQuizzes:Quiz[] = [];
 
