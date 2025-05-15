@@ -38,12 +38,12 @@ export class InstructorComponent implements OnInit {
   addCourse(){
 
     if (
-      !this.CourseName.trim() ||
-      !this.CourseDesc.trim() ||
-      !this.CourseDuration.trim() ||
-      !this.CourseLevel.trim() ||
-      !this.CourseLecCount.trim() ||
-      !this.CourseSecCount.trim()
+      this.CourseName == "" ||
+      this.CourseDesc == "" ||
+      this.CourseDuration == "" ||
+      this.CourseLevel == "" ||
+      this.CourseLecCount == "" ||
+      this.CourseSecCount == ""
     ) {
       alert("Please fill in all course fields before submitting.");
       return;
