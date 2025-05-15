@@ -5,6 +5,7 @@ import { Courses } from '../../models/courses';
 import { Assignment } from '../../models/assignment';
 import { Quiz } from '../../models/quiz';
 import { Lecture } from '../../models/lecture';
+import { Student } from '../../models/student';
 
 @Injectable({
   providedIn: 'root'
@@ -140,6 +141,49 @@ export class InstructorService {
         );
       })
     );
+  }
+
+
+  getCourseStudents(studentIds: number[]): Observable<Student[]> {
+  const requests = studentIds.map(id =>
+    this.http.get<any>(`${this.baseUrl}/students/${id}`).pipe(
+      map(res => new Student(
+        res.id,
+        res.name,
+        res.email,
+        res.password,
+        res.courseIds?.$values || []
+      ))
+    )
+  );
+
+  return forkJoin(requests);
+}
+
+  getAssignmentGrade(studentId: number, assignmentId: number): Observable<number | null> {
+    const url = `${this.baseUrl}/submissions/${studentId}/${assignmentId}/grade`;
+    return this.http.get<{ grade: number | null }>(url).pipe(
+      map(response => response.grade)
+    );
+  }
+
+  getQuizGrade(studentId: number, assignmentId: number): Observable<number | null> {
+    const url = `${this.baseUrl}/StudentQuiz/${studentId}/${assignmentId}/grade`;
+    return this.http.get<{ grade: number | null }>(url).pipe(
+      map(response => response.grade)
+    );
+  }
+
+  updateAssignmentGrade(studentId: number, assignmentId: number, grade: number): Observable<any> {
+    const url = `${this.baseUrl}/submissions/${studentId}/${assignmentId}/grade`;
+    const body = { grade: grade };
+    return this.http.put(url, body);
+  }
+
+  updateQuizGrade(studentId: number, assignmentId: number, grade: number): Observable<any> {
+    const url = `${this.baseUrl}/StudentQuiz/${studentId}/${assignmentId}/grade`;
+    const body = { grade: grade };
+    return this.http.put(url, body);
   }
 
 

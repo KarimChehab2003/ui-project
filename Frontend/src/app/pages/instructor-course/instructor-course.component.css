@@ -196,6 +196,24 @@
   margin-left: auto;
   margin-right: auto;
 }
+.course_title{
+  display: inline;
+  margin-right: 80px;
+}
+.back-btn{
+  background-color: red;
+  color: #fff;
+  border: none;
+  border-radius: 2em;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background 0.2s;
+  margin-left: auto;
+  margin-right: auto;
+}
 .enrolled-btn:hover {
   background: #139e7e;
 }
@@ -258,6 +276,44 @@ a{
   gap: 1rem;
   margin-top: 1.5rem;
 }
+
+/* Table design */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: #2c3e50;
+  color: white;
+}
+
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+td {
+  font-size: 14px;
+  color: #333;
+}
+
 
 
 @media (max-width: 900px) {

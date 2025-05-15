@@ -7,6 +7,7 @@ import { Lecture } from '../../models/lecture';
 import { Assignment } from '../../models/assignment';
 import { Quiz } from '../../models/quiz';
 import { InstructorService } from '../../services/instructor/instructor.service';
+import { Student } from '../../models/student';
 
 @Component({
   selector: 'app-instructor-course',
@@ -25,6 +26,7 @@ export class InstructorCourseComponent implements OnInit {
 
   coursesExpanded = true;
   selectedCourse: Courses | null = null;
+  selectedCourseEnrolledStudents : Student[] = [];
 
   showAddLectureForm = false;
   newLectureName : string = "";
@@ -37,6 +39,11 @@ export class InstructorCourseComponent implements OnInit {
   showAddQuizForm = false;
   newQuizName : string = "";
   newQuizDesc : string = "";
+
+  showEnrolledStudentsAndGrades = false;
+
+  gradesAssignment: { [studentId: number]: { [itemId: number]: number } } = {};
+  gradesQuiz: { [studentId: number]: { [itemId: number]: number } } = {};
 
 
   ngOnInit(): void {
@@ -52,6 +59,31 @@ export class InstructorCourseComponent implements OnInit {
 
         if (this.instructorCourses.length > 0) {
           this.selectedCourse = this.instructorCourses[0];
+          this.instructorService.getCourseStudents(this.selectedCourse.enrolledStudents).subscribe(students => {
+            this.selectedCourseEnrolledStudents = students;
+            for (const student of students) {
+              if (!this.gradesQuiz[student.id]) {
+                this.gradesQuiz[student.id] = {};
+              }
+              if (!this.gradesAssignment[student.id]) {
+                this.gradesAssignment[student.id] = {};
+              }
+              for (const assignment of this.selectedCourse?.assignments || []) {
+                this.instructorService.getAssignmentGrade(student.id, assignment.id).subscribe(
+                  (grade: number | null) => {
+                    this.gradesAssignment[student.id][assignment.id] = grade ?? 0;
+                  }
+                );
+              }
+              for (const quiz of this.selectedCourse?.quizzes || []) {
+                this.instructorService.getQuizGrade(student.id, quiz.id).subscribe(
+                  (grade: number | null) => {
+                    this.gradesQuiz[student.id][quiz.id] = grade ?? 0;
+                  }
+                );
+              }
+            }
+          });
         }
       }
     );
@@ -64,6 +96,31 @@ export class InstructorCourseComponent implements OnInit {
 
   selectCourse(course: Courses) {
     this.selectedCourse = course;
+    this.instructorService.getCourseStudents(this.selectedCourse.enrolledStudents).subscribe(students => {
+      this.selectedCourseEnrolledStudents = students;
+      for (const student of students) {
+        if (!this.gradesAssignment[student.id]) {
+          this.gradesAssignment[student.id] = {};
+        }
+        if (!this.gradesQuiz[student.id]) {
+          this.gradesQuiz[student.id] = {};
+        }
+        for (const assignment of this.selectedCourse?.assignments || []) {
+          this.instructorService.getAssignmentGrade(student.id, assignment.id).subscribe(
+            (grade: number | null) => {
+              this.gradesAssignment[student.id][assignment.id] = grade ?? 0;
+            }
+          );
+        }
+        for (const quiz of this.selectedCourse?.quizzes || []) {
+          this.instructorService.getQuizGrade(student.id, quiz.id).subscribe(
+            (grade: number | null) => {
+              this.gradesQuiz[student.id][quiz.id] = grade ?? 0;
+            }
+          );
+        }
+      }
+    });
   }
 
   addLecture() {
@@ -157,6 +214,38 @@ export class InstructorCourseComponent implements OnInit {
           }
         });
     }
+  }
+
+  gradeInputChangeAssignment(studentId: number, itemId: number, value: number){
+    if (!this.gradesAssignment[studentId]) {
+      this.gradesAssignment[studentId] = {};
+    }
+    this.gradesAssignment[studentId][itemId] = value;
+  }
+
+  gradeInputChangeQuiz(studentId: number, itemId: number, value: number){
+    if (!this.gradesQuiz[studentId]) {
+      this.gradesQuiz[studentId] = {};
+    }
+    this.gradesQuiz[studentId][itemId] = value;
+  }
+
+  updateAssignmentGrade(studentId: number, assignmentId: number){
+    const value = this.gradesAssignment[studentId]?.[assignmentId];
+    this.instructorService.updateAssignmentGrade(studentId, assignmentId, value).subscribe({
+      next: () => {
+        alert('Student Mark has been updated');
+      }
+    });
+  }
+
+  updateQuizGrade(studentId: number, quizId: number){
+    const value = this.gradesQuiz[studentId]?.[quizId];
+    this.instructorService.updateQuizGrade(studentId, quizId, value).subscribe({
+      next: () => {
+        alert('Student Mark has been updated');
+      }
+    });
   }
 
   goToInstructorPage(){

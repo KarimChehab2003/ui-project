@@ -42,53 +42,114 @@
     <header class="main-header">
       <div class="app-title">LMS</div>
     </header>
-    <section class="course-section" *ngIf="selectedCourse">
-      <h1>{{ selectedCourse.name }}</h1>
-      <div class="course-content">
-        <div class="course-card">
-          <div class="card-title">
-            <i class="fas fa-book-reader"></i> Course Material
+    
+    <div *ngIf="!showEnrolledStudentsAndGrades">
+
+      <section class="course-section" *ngIf="selectedCourse">
+        <h1>{{ selectedCourse.name }}</h1>
+        <div class="course-content">
+          <div class="course-card">
+            <div class="card-title">
+              <i class="fas fa-book-reader"></i> Course Material
+            </div>
+            <div class="card-section">
+              <div class="section-title">Lectures</div>
+              <ul *ngIf="selectedCourse.lectures.length > 1">
+                <li *ngFor="let lecture of selectedCourse?.lectures ?? []">
+                  <a href={{lecture?.description}}>{{ lecture?.name }}</a>
+                </li>
+              </ul>
+              <div class="add-action" (click)="showAddLectureForm = true">
+                Add Lecture <i class="fas fa-plus-circle"></i>
+              </div>
+            </div>
           </div>
-          <div class="card-section">
-            <div class="section-title">Lectures</div>
-            <ul *ngIf="selectedCourse.lectures.length > 1">
-              <li *ngFor="let lecture of selectedCourse?.lectures ?? []">
-                <a href={{lecture?.description}}>{{ lecture?.name }}</a>
-              </li>
-            </ul>
-            <div class="add-action" (click)="showAddLectureForm = true">
-              Add Lecture <i class="fas fa-plus-circle"></i>
+          <div class="course-card">
+            <div class="card-title">
+              <i class="fas fa-clipboard-list"></i> Assessments
+            </div>
+            <div class="card-section">
+              <div class="section-title">Assignments</div>
+              <ul *ngIf="selectedCourse.assignments.length > 1">
+                <li *ngFor="let assignment of selectedCourse?.assignments ?? []">
+                  <a href="{{ assignment?.description }}">{{ assignment?.name }}</a>
+                </li>
+              </ul>
+              <div class="add-action" [ngStyle]="{ 'margin-bottom': '10px' }" (click)="showAddAssignmentForm = true">
+                Add Assignment <i class="fas fa-plus-circle"></i>
+              </div>
+              <div class="section-title">Quizzes</div>
+              <ul *ngIf="selectedCourse.quizzes.length > 1">
+                <li *ngFor="let quiz of selectedCourse?.quizzes ?? []">
+                  <a href="{{ quiz?.description }}">{{ quiz?.name }}</a>
+                </li>
+              </ul>
+              <div class="add-action" (click)="showAddQuizForm = true">
+                Add Quiz <i class="fas fa-plus-circle"></i>
+              </div>
             </div>
           </div>
         </div>
-        <div class="course-card">
-          <div class="card-title">
-            <i class="fas fa-clipboard-list"></i> Assessments
-          </div>
-          <div class="card-section">
-            <div class="section-title">Assignments</div>
-            <ul *ngIf="selectedCourse.assignments.length > 1">
-              <li *ngFor="let assignment of selectedCourse?.assignments ?? []">
-                <a href="{{ assignment?.description }}">{{ assignment?.name }}</a>
-              </li>
-            </ul>
-            <div class="add-action" [ngStyle]="{ 'margin-bottom': '10px' }" (click)="showAddAssignmentForm = true">
-              Add Assignment <i class="fas fa-plus-circle"></i>
-            </div>
-            <div class="section-title">Quizzes</div>
-            <ul *ngIf="selectedCourse.quizzes.length > 1">
-              <li *ngFor="let quiz of selectedCourse?.quizzes ?? []">
-                <a href="{{ quiz?.description }}">{{ quiz?.name }}</a>
-              </li>
-            </ul>
-            <div class="add-action" (click)="showAddQuizForm = true">
-              Add Quiz <i class="fas fa-plus-circle"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="enrolled-btn">Enrolled Students and Grades</button>
-    </section>
+        <button class="enrolled-btn" (click)="showEnrolledStudentsAndGrades = true">Enrolled Students and Grades</button>
+      </section>
+
+    </div>
+
+    <div *ngIf="showEnrolledStudentsAndGrades">
+
+      <section [ngStyle]="{ 'margin-left': '50px' }">
+        <h1 class="course_title">{{ selectedCourse?.name }} 's Enrolled Students and Grades</h1>
+        <button class="back-btn" (click)="showEnrolledStudentsAndGrades = false">Back</button>
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Student Names</th>
+
+              <th *ngFor="let assignment of selectedCourse?.assignments">
+                <ng-container *ngIf="assignment?.name !== undefined">
+                  {{ assignment.name }}
+                </ng-container>
+              </th>
+
+              <th *ngFor="let quiz of selectedCourse?.quizzes">
+                <ng-container *ngIf="quiz?.name !== undefined">
+                  {{ quiz.name }}
+                </ng-container>
+              </th>
+              
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let student of selectedCourseEnrolledStudents">
+              <td>{{ student.name }}</td>
+
+              <td *ngFor="let assignment of selectedCourse?.assignments || []">
+                <ng-container *ngIf="assignment?.name !== undefined">
+                  <input type="number" min="0" max="100" [(ngModel)]="gradesAssignment[student.id][assignment.id]" (ngModelChange)="gradeInputChangeAssignment(student.id, assignment.id, $event)">
+                  <button (click)="updateAssignmentGrade(student.id, assignment.id)">Update</button>
+                </ng-container>
+              </td>
+
+              <td *ngFor="let quiz of selectedCourse?.quizzes || []">
+                <ng-container *ngIf="quiz?.name !== undefined">
+                  <input type="number" min="0" max="100" [(ngModel)]="gradesQuiz[student.id][quiz.id]" (ngModelChange)="gradeInputChangeQuiz(student.id, quiz.id, $event)">
+                  <button (click)="updateQuizGrade(student.id, quiz.id)">Update</button>
+                </ng-container>
+              </td>
+
+            </tr>
+          </tbody>
+
+
+        </table>
+
+      </section>
+
+    </div>
+    
   </main>
 </div>
 

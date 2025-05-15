@@ -3,6 +3,7 @@ using Elearning.Dtos;
 using Elearning.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Elearning.Controllers
 {
@@ -44,6 +45,32 @@ namespace Elearning.Controllers
             submission.Grade = gradeDto.Grade;
             await _context.SaveChangesAsync();
             return NoContent();
+        }
+
+        [HttpPut("{studentId}/{assignmentId}/grade")]
+        public async Task<IActionResult> UpdateGrade(int studentId, int assignmentId, [FromBody] GradeDTO gradeDto)
+        {
+            var submission = await _context.StudentAssignments
+                .FirstOrDefaultAsync(sa => sa.StudentId == studentId && sa.AssignmentId == assignmentId);
+
+            if (submission == null) return NotFound();
+
+            submission.Grade = gradeDto.Grade;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
+        [HttpGet("{studentId}/{assignmentId}/grade")]
+        public async Task<IActionResult> GetGrade(int studentId, int assignmentId)
+        {
+            var submission = await _context.StudentAssignments
+                .FirstOrDefaultAsync(sa => sa.StudentId == studentId && sa.AssignmentId == assignmentId);
+
+            if (submission == null) return NotFound();
+
+            return Ok(new { Grade = submission.Grade });
         }
     }
 }
