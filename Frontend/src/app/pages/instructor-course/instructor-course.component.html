@@ -54,7 +54,7 @@
             </div>
             <div class="card-section">
               <div class="section-title">Lectures</div>
-              <ul *ngIf="selectedCourse.lectures.length > 1">
+              <ul *ngIf="selectedCourse.lectures.length > 1 || selectedCourse.lectures[0].name != undefined">
                 <li *ngFor="let lecture of selectedCourse?.lectures ?? []">
                   <a href={{lecture?.description}}>{{ lecture?.name }}</a>
                 </li>
@@ -70,7 +70,7 @@
             </div>
             <div class="card-section">
               <div class="section-title">Assignments</div>
-              <ul *ngIf="selectedCourse.assignments.length > 1">
+              <ul *ngIf="selectedCourse.assignments.length > 1 || selectedCourse.assignments[0].name != undefined">
                 <li *ngFor="let assignment of selectedCourse?.assignments ?? []">
                   <a href="{{ assignment?.description }}">{{ assignment?.name }}</a>
                 </li>
@@ -79,7 +79,7 @@
                 Add Assignment <i class="fas fa-plus-circle"></i>
               </div>
               <div class="section-title">Quizzes</div>
-              <ul *ngIf="selectedCourse.quizzes.length > 1">
+              <ul *ngIf="selectedCourse.quizzes.length > 1 || selectedCourse.quizzes[0].name != undefined">
                 <li *ngFor="let quiz of selectedCourse?.quizzes ?? []">
                   <a href="{{ quiz?.description }}">{{ quiz?.name }}</a>
                 </li>
