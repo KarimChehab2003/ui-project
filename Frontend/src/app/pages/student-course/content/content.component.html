@@ -89,30 +89,25 @@
                         </div>
                     </div>
                     <div class="course-overview-container">
-                        <p class="course-overview-title">📤 Assignment Upload</p>
+                        <p class="course-overview-title">📤 Assignments</p>
                         <div class="grade-card-container">
-                            <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
-                            <div class="grade-list-widget grade-percentage-list-item grade-list-widget:first-child">
-                                <ul class="course-details-list">
-                                    <li>Assignment 1: 85%</li>
-                                </ul>
-                            </div>
-                            <div class="grade-list-widget grade-percentage-list-item">
-                                <ul class="course-details-list">
-                                    <li>Quiz 1: 90%&nbsp;</li>
-                                </ul>
-                            </div>
-                            <div class="grade-list-widget grade-percentage-list-item">
-                                <ul class="course-details-list">
-                                    <li>Final Grade: B+</li>
-                                </ul>
-                            </div>
+                            <ul class="assignment-list">
+                                @for (assignment of assignments; track $index) {
+                                <li class="assignment-item">
+                                    <div class="assignment-info">
+                                        <p class="assignment-title">{{ assignment.title }}</p>
+                                        <p class="assignment-desc">{{ assignment.description }}</p>
+                                    </div>
+                                    <button class="submit-btn" [disabled]="submittedAssignments.has(assignment.id)" (click)="submitAssignment(assignment.id)">{{ submittedAssignments.has(assignment.id) ? 'Submitted' : 'Submit Assignment' }}</button>
+                                </li>
+                                }
+                            </ul>
+
                         </div>
                     </div>
                     <div class="course-overview-container">
                         <p class="course-overview-title"><span>📎 </span><span class="resource-title">Resources</span></p>
                         <div class="grade-summary-container1">
-                            <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
                             <div class="grade-list-widget lecture-notes-container grade-list-widget:first-child">
                                 <ul class="course-details-list">
                                     <li>Lecture Notes</li>

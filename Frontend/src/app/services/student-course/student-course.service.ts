@@ -16,8 +16,8 @@ export class StudentCourseService {
   constructor(private http: HttpClient) {
     this.loadUser();
     this.fetchCourses();
-    // console.log(this.enrolledCourses);
-    // console.log(this.user);
+    console.log(this.enrolledCourses);
+    console.log(this.user);
   }
 
   loadUser(){
@@ -36,4 +36,6 @@ export class StudentCourseService {
     })
     this.enrolledCourses.next(courses);
   }
+
+
 }
