@@ -621,7 +621,12 @@ export class AdminComponent implements OnInit {
   getPendingStudents() {
     this.adminService.getPendingStudents().subscribe({
       next: (students) => {
-        this.pendingStudents = students?.$values ?? students;
+        const studentArray = students?.$values ?? students;
+        if (!studentArray || studentArray.length === 0) {
+          alert('No pending students');
+          return;
+        }
+        this.pendingStudents = studentArray;
       },
       error: (error) => {
         alert(
