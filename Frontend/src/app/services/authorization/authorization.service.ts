@@ -44,18 +44,13 @@ export class AuthorizationService {
     );
   }
 
-
-  signUp(role: string, name: string, email: string, password: string): Observable<Student | Instructor> {
+  // Sign Up functions
+  signUpInstructor(role: string, name: string, email: string, password: string): Observable<Instructor> {
     let endpoint = '';
     let checkEmailEndpoint = '';
 
-    if (role === 'student') {
-      endpoint = `${this.baseUrl}/Students`;
-      checkEmailEndpoint = `${this.baseUrl}/Students/check-email?email=${encodeURIComponent(email)}`;
-    } else if (role === 'instructor') {
-      endpoint = `${this.baseUrl}/Instructor`;
-      checkEmailEndpoint = `${this.baseUrl}/Instructor/check-email?email=${encodeURIComponent(email)}`;
-    }
+    endpoint = `${this.baseUrl}/Instructor`;
+    checkEmailEndpoint = `${this.baseUrl}/Instructor/check-email?email=${encodeURIComponent(email)}`;
 
     return this.http.get<boolean>(checkEmailEndpoint).pipe(
       switchMap((exists: boolean) => {
@@ -67,10 +62,23 @@ export class AuthorizationService {
             email: email,
             password: password
           };
-          return this.http.post<Student | Instructor>(endpoint, payload);
+          return this.http.post<Instructor>(endpoint, payload);
         }
       })
     );
+  }
+
+  signUpStudent(role: string, name: string, email: string, password: string): Observable<Student> {
+    let endpoint = '';
+
+    endpoint = `${this.baseUrl}/studentsPending`;
+
+    const payload = {
+      name: name,
+      email: email,
+      password: password
+    };
+    return this.http.post<Instructor>(endpoint, payload);
   }
 
 }

@@ -36,23 +36,33 @@ export class SignupComponent {
       return alert('SignUp failed: Password must be at least 6 characters long.');
     }
 
-    this.authorizationService.signUp(this.role, this.name , this.email, this.password).subscribe({
+    if(this.role == "instructor"){
+      this.authorizationService.signUpInstructor(this.role, this.name , this.email, this.password).subscribe({
       next: (user) => {
         this.user = user;
 
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('role', this.role);
 
-        if (this.role === 'student') {
-          this.router.navigate(['/dashboard']);
-        } else if (this.role === 'instructor') {
-          this.router.navigate(['/instructor']);
-        }
+        this.router.navigate(['/instructor']);
       },
       error: (err) => {
         alert('SignUp failed: ' + err.message);
       }
     });
+
+    }else if(this.role == "student"){
+      this.authorizationService.signUpStudent(this.role, this.name , this.email, this.password).subscribe({
+        next: (user) => {
+          this.user = user;
+
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          alert('SignUp failed: ' + err.message);
+        }
+      });
+    }
   }
 
   goToSignIn(){
