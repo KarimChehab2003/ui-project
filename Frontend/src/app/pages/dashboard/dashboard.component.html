@@ -125,7 +125,7 @@
                     <svg viewBox="0 0 48 48" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Icon_7" d="M38.9645,15.0254l-20.576,17.949l-9.353,-8.159" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" /></svg>
                   </div>
                   <h3 class="activity-description-text-display-style"> Lectures</h3>
-                  <p class="activity-description-text-display-style" *ngFor="let courselect in this.getCourseLectures(course.id)">Lecture {{courselect.name}}</p>
+                  <p class="activity-description-text-display-style" *ngFor="let courselect in this.courseLecturesMap.get(course.id)">Lecture {{courselect.name}}</p>
                   <br>
                 
               <a routerLink="/student-course">Go to Course</a>
@@ -153,7 +153,7 @@
               <div class="card-container-with-tasks">
                 <h3 class="activity-description-text-display-style">Assignments</h3>
                 <div *ngFor="let course in this.studentCourses">
-                <div class="course-item-container" *ngFor="let assignment in this.getCourseAssignments(course.id)"  >
+                <div class="course-item-container" *ngFor="let assignment in this.courseAssignmentMap(course.id)"  >
                   <div class="course-item-display-style">
                     <ul class="course-list-item" >
 
@@ -169,7 +169,7 @@
                 
                  <h3 class="activity-description-text-display-style"> Quizzes</h3>
 <div *ngFor="let course in this.studentCourses" >
-                 <div class="course-item-container1" *ngFor="let quiz in this.getCourseQuizzes(course.id)"  >
+                 <div class="course-item-container1" *ngFor="let quiz in this.courseQuizMap(course)"  >
                   <div class="course-item-display-style">
                     <ul class="course-list-item">
                       <li>Quiz {{quiz.name}} (Course {{course.id}})</li>

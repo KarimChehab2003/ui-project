@@ -25,6 +25,13 @@ import { Assignment } from '../../models/assignment';
 })
 export class DashboardComponent {
 
+
+  public courseLecturesMap = new Map();
+
+  public courseAssignmentMap = new Map();
+
+  public courseQuizMap = new Map();
+
 public loggedInUser: Student | null = null;
 
 public studentCourses:BehaviorSubject<Courses[]>|null = null;
@@ -47,8 +54,31 @@ courses =>{this.studentCourses?.next(courses)}
 );
 
 this.studentCourseService.fetchCourses();
+//fetching lectures
+this.studentCourses?.subscribe(
+coursearray=> {
+  coursearray.forEach(course=> this.courseLecturesMap.set(course.id,this.getCourseLectures(course)));
+}
+
+);
+
+//fetching assignments
+this.studentCourses?.subscribe(
+coursearray=> {
+  coursearray.forEach(course=> this.courseAssignmentMap.set(course.id,this.getCourseAssignments(course)));
+}
+
+);
 
 
+// fetching quizzes
+
+this.studentCourses?.subscribe(
+coursearray=> {
+  coursearray.forEach(course=> this.courseQuizMap.set(course.id,this.getCourseQuizzes(course)));
+}
+
+);
 
 }
 
