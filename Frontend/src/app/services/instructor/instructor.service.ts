@@ -84,25 +84,64 @@ export class InstructorService {
     return this.http.post<Lecture>(`${this.baseUrl}/lectures`, lecture);
   }
 
+
   addAssignment(courseId: number, name: string, description: string): Observable<Assignment> {
-    const Assignment = {
+    const assignmentPayload = {
       title: name,
       description: description,
       courseId: courseId
     };
 
-    return this.http.post<Assignment>(`${this.baseUrl}/assignments`, Assignment);
+    return this.http.get<any>(`${this.baseUrl}/Course/${courseId}`).pipe(
+      switchMap(course => {
+        const studentIds = course.studentIds?.$values || [];
+
+        return this.http.post<Assignment>(`${this.baseUrl}/assignments`, assignmentPayload).pipe(
+          switchMap(createdAssignment => {
+            const assignmentId = createdAssignment.id;
+
+            const submissionRequests = studentIds.map((studentId: number) =>
+              this.http.post(`${this.baseUrl}/submissions/${studentId}/${assignmentId}`, {})
+            );
+
+            return forkJoin(submissionRequests).pipe(
+              map(() => createdAssignment)
+            );
+          })
+        );
+      })
+    );
   }
+
 
   addQuiz(courseId: number, name: string, description: string): Observable<Quiz> {
-    const Quiz = {
+    const quizPayload = {
       title: name,
       description: description,
       courseId: courseId
     };
 
-    return this.http.post<Quiz>(`${this.baseUrl}/Quiz`, Quiz);
+    return this.http.get<any>(`${this.baseUrl}/Course/${courseId}`).pipe(
+      switchMap(course => {
+        const studentIds = course.studentIds?.$values || [];
+
+        return this.http.post<Quiz>(`${this.baseUrl}/Quiz`, quizPayload).pipe(
+          switchMap(createdQuiz => {
+            const quizId = createdQuiz.id;
+
+            const submissionRequests = studentIds.map((studentId: number) =>
+              this.http.post(`${this.baseUrl}/StudentQuiz/${studentId}/${quizId}`, {})
+            );
+
+            return forkJoin(submissionRequests).pipe(
+              map(() => createdQuiz)
+            );
+          })
+        );
+      })
+    );
   }
+
 
   addCourse( instructorId: number, title: string, description: string, duration: string, level: string, lectureCount: string, sectionCount: string ) {
     const body = {
