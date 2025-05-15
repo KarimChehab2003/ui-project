@@ -75,6 +75,21 @@ namespace Elearning.Controllers
             return CreatedAtAction(nameof(GetStudent), new { id = student.Id }, student);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStudent(int id)
+        {
+            var student = await _context.StudentsPending.FindAsync(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            _context.StudentsPending.Remove(student);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
     }
 }
 
