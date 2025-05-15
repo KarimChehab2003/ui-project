@@ -101,7 +101,7 @@ namespace Elearning.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DurationInHours")
+                    b.Property<int?>("DurationInHours")
                         .HasColumnType("int");
 
                     b.Property<int>("InstructorId")
@@ -224,6 +224,32 @@ namespace Elearning.Migrations
                     b.HasIndex("AssignmentId");
 
                     b.ToTable("StudentAssignments");
+                });
+
+            modelBuilder.Entity("Elearning.Models.StudentPending", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StudentsPending");
                 });
 
             modelBuilder.Entity("Elearning.Models.StudentQuiz", b =>
