@@ -32,6 +32,8 @@ export class DashboardComponent {
 
   public courseQuizMap = new Map();
 
+  public courseInstructorMap= new Map();
+
 public loggedInUser: Student | null = null;
 
 public studentCourses:BehaviorSubject<Courses[]>|null = null;
@@ -76,6 +78,15 @@ coursearray=> {
 this.studentCourses?.subscribe(
 coursearray=> {
   coursearray.forEach(course=> this.courseQuizMap.set(course.id,this.getCourseQuizzes(course)));
+}
+
+);
+
+// fetching instructors
+
+this.studentCourses?.subscribe(
+coursearray=> {
+  coursearray.forEach(course=> this.courseQuizMap.set(course.id,this.getInstructor(course)));
 }
 
 );
