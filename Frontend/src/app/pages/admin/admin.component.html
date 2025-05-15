@@ -21,6 +21,13 @@
           <i class="fas fa-tasks"></i>
           <span>Course Assignments</span>
         </li>
+        <li
+          data-section="approve-students"
+          (click)="switchSection('approve-students')"
+        >
+          <i class="fas fa-user-check"></i>
+          <span>Approve Students</span>
+        </li>
       </ul>
     </nav>
 
@@ -29,9 +36,20 @@
       <section id="users" class="section active">
         <h2>User Management</h2>
         <div class="action-bar">
-          <button class="btn primary" (click)="addNewUser()">
-            Add New User
-          </button>
+          <div class="button-container">
+            <button class="btn primary" (click)="addNewUser()">
+              Add New User
+            </button>
+            <button class="btn primary primary-button" (click)="getStudents()">
+              Get Students
+            </button>
+            <button
+              class="btn primary primary-button2"
+              (click)="getInstructors()"
+            >
+              Get Instructors
+            </button>
+          </div>
           <div class="search-bar">
             <input
               type="text"
@@ -54,21 +72,43 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users">
+              <!-- Students -->
+              <tr *ngFor="let user of students">
                 <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.role }}</td>
+                <td>Student</td>
                 <td>
                   <button
                     class="btn-icon edit"
-                    (click)="editItem('user', user.id)"
+                    (click)="editItem('student', user.id)"
                   >
                     <i class="fas fa-edit"></i>
                   </button>
                   <button
                     class="btn-icon delete"
-                    (click)="deleteItem('user', user.id)"
+                    (click)="deleteItem('student', user.id)"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <!-- Instructors -->
+              <tr *ngFor="let user of instructors">
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>Instructor</td>
+                <td>
+                  <button
+                    class="btn-icon edit"
+                    (click)="editItem('instructor', user.id)"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    class="btn-icon delete"
+                    (click)="deleteItem('instructor', user.id)"
                   >
                     <i class="fas fa-trash"></i>
                   </button>
@@ -86,6 +126,9 @@
           <button class="btn primary" (click)="addNewCourse()">
             Add New Course
           </button>
+          <button class="btn primary primary-button3" (click)="getCourses()">
+            Show All Courses
+          </button>
           <div class="search-bar">
             <input
               type="text"
@@ -102,7 +145,7 @@
               <tr>
                 <th>Course ID</th>
                 <th>Course Name</th>
-                <th>Instructor</th>
+                <th>Instructor ID</th>
                 <th>Duration</th>
                 <th>Actions</th>
               </tr>
@@ -114,15 +157,12 @@
                 <td>{{ course.instructor }}</td>
                 <td>{{ course.duration }}</td>
                 <td>
-                  <button
-                    class="btn-icon edit"
-                    (click)="editItem('course', course.id)"
-                  >
+                  <button class="btn-icon edit" (click)="editCourse(course.id)">
                     <i class="fas fa-edit"></i>
                   </button>
                   <button
                     class="btn-icon delete"
-                    (click)="deleteItem('course', course.id)"
+                    (click)="deleteCourse(course.id)"
                   >
                     <i class="fas fa-trash"></i>
                   </button>
@@ -193,6 +233,241 @@
           </div>
         </div>
       </section>
+
+      <!-- Approve Students Section -->
+      <section id="approve-students" class="section">
+        <h2>Approve Students</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of pendingStudents">
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>
+                  <button class="btn primary" (click)="approveStudent(student)">
+                    Approve
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
+  </div>
+
+  <!-- Add User Form Modal -->
+  <div class="modal" *ngIf="showAddUserForm">
+    <div class="modal-content">
+      <h2>Add New User</h2>
+      <form (ngSubmit)="submitNewUser()">
+        <div class="form-group">
+          <label for="role">Role:</label>
+          <select id="role" [(ngModel)]="selectedRole" name="role" required>
+            <option value="student">Student</option>
+            <option value="instructor">Instructor</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="newUser.name"
+            name="name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            [(ngModel)]="newUser.email"
+            name="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            [(ngModel)]="newUser.password"
+            name="password"
+            required
+          />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Add User</button>
+          <button type="button" class="btn-secondary" (click)="cancelAddUser()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit User Form Modal -->
+  <div class="modal" *ngIf="showEditUserForm">
+    <div class="modal-content">
+      <h2>Edit {{ selectedRole === "student" ? "Student" : "Instructor" }}</h2>
+      <form (ngSubmit)="submitEditUser()">
+        <div class="form-group">
+          <label for="edit-name">Name:</label>
+          <input
+            type="text"
+            id="edit-name"
+            [(ngModel)]="newUser.name"
+            name="name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="edit-email">Email:</label>
+          <input
+            type="email"
+            id="edit-email"
+            [(ngModel)]="newUser.email"
+            name="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="edit-password"
+            >New Password (leave blank to keep current):</label
+          >
+          <input
+            type="password"
+            id="edit-password"
+            [(ngModel)]="newUser.password"
+            name="password"
+          />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Update User</button>
+          <button type="button" class="btn-secondary" (click)="cancelAddUser()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Course Form Modal -->
+  <div class="modal" *ngIf="showAddCourseForm || showEditCourseForm">
+    <div class="modal-content">
+      <h3>{{ showEditCourseForm ? "Edit Course" : "Add New Course" }}</h3>
+      <form
+        (ngSubmit)="showEditCourseForm ? submitEditCourse() : submitNewCourse()"
+      >
+        <div class="form-group">
+          <label for="courseName">Course Name</label>
+          <input
+            type="text"
+            id="courseName"
+            [(ngModel)]="newCourse.name"
+            name="name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="instructor">Instructor</label>
+          <select
+            id="instructor"
+            [(ngModel)]="newCourse.instructor"
+            name="instructor"
+            required
+          >
+            <option value="">Select an instructor...</option>
+            <option
+              *ngFor="let instructor of instructors"
+              [value]="instructor.id"
+            >
+              {{ instructor.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="duration">Duration</label>
+          <input
+            type="text"
+            id="duration"
+            [(ngModel)]="newCourse.duration"
+            name="duration"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="lectureCount">Number of Lectures</label>
+          <input
+            type="number"
+            id="lectureCount"
+            [(ngModel)]="newCourse.lectureCount"
+            name="lectureCount"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="sectionCount">Number of Sections</label>
+          <input
+            type="number"
+            id="sectionCount"
+            [(ngModel)]="newCourse.sectionCount"
+            name="sectionCount"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="level">Level</label>
+          <select
+            id="level"
+            [(ngModel)]="newCourse.level"
+            name="level"
+            required
+          >
+            <option value="">Select level...</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            [(ngModel)]="newCourse.description"
+            name="description"
+            required
+          ></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">
+            {{ showEditCourseForm ? "Update Course" : "Add Course" }}
+          </button>
+          <button
+            type="button"
+            class="btn secondary"
+            (click)="cancelAddCourse()"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </body>
