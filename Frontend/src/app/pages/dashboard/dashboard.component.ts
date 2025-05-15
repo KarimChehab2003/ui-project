@@ -14,6 +14,8 @@ import { QuizserviceService } from '../../services/quiz/quizservice.service';
 import { LectureServiceService } from '../../services/lecture/lecture-service.service';
 import { Lecture } from '../../models/lecture';
 import { Quiz } from '../../models/quiz';
+import { AssignmentService } from '../../services/assignment/assignment.service';
+import { Assignment } from '../../models/assignment';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -30,7 +32,8 @@ public studentCourses:BehaviorSubject<Courses[]>|null = null;
 
 
 constructor(private studentCourseService:StudentCourseService , private studentService:StudentService
-  ,private quizService:QuizserviceService ,private lectureService:LectureServiceService
+  ,private quizService:QuizserviceService ,private lectureService:LectureServiceService,
+  private assignmentService:AssignmentService
 ){
   
 this.loadUser();
@@ -46,7 +49,7 @@ courses =>{this.studentCourses?.next(courses)}
 this.studentCourseService.fetchCourses();
 
 
-this.quizService
+
 }
 
 
@@ -68,5 +71,9 @@ return this.lectureService.getCourseLectures(course.id);
 
 getCourseQuizzes(course:Courses):Quiz[]{
   return this.quizService.getCourseQuizzes(course.id);
+}
+
+getCourseAssignments(course:Courses):Assignment[]{
+  return this.assignmentService.getcourseAssignment(course.id);
 }
 }

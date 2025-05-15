@@ -127,8 +127,8 @@
                   <h3 class="activity-description-text-display-style"> Lectures</h3>
                   <p class="activity-description-text-display-style" *ngFor="let courselect in this.getCourseLectures(course.id)">Lecture {{courselect.name}}</p>
                   <br>
-                   <h3 class="activity-description-text-display-style"> Quizzes</h3>
-                  <p class="activity-description-text-display-style" *ngFor="let coursequiz in this.getCourseQuizzes(course.id)">quiz {{coursequiz.name}}</p>
+                
+              <a routerLink="/student-course">Go to Course</a>
                 </div>
 
 
@@ -146,31 +146,45 @@
                 </div>
               </div>
             </div> -->
-            <div class="activity-panel">
-              <p class="activity-section-title">📅 Upcoming Deadlines</p>
+
+            
+             <div class="activity-panel">
+              <p class="activity-section-title">📅 Due List</p>
               <div class="card-container-with-tasks">
-                <div class="course-item-container">
+                <h3 class="activity-description-text-display-style">Assignments</h3>
+                <div *ngFor="let course in this.studentCourses">
+                <div class="course-item-container" *ngFor="let assignment in this.getCourseAssignments(course.id)"  >
                   <div class="course-item-display-style">
-                    <ul class="course-list-item">
-                      <li>Assignment 1 (Course 2)</li>
+                    <ul class="course-list-item" >
+
+
+
+                      <li>Assignment {{assignment.name}} (Course {{course.id}})</li>
                     </ul>
                   </div>
                   <p class="course-details-text-style">Due: March 30th, 2025</p>
                 </div>
-                <div class="course-item-container1">
+                </div>
+
+                
+                 <h3 class="activity-description-text-display-style"> Quizzes</h3>
+<div *ngFor="let course in this.studentCourses" >
+                 <div class="course-item-container1" *ngFor="let quiz in this.getCourseQuizzes(course.id)"  >
                   <div class="course-item-display-style">
                     <ul class="course-list-item">
-                      <li>Quiz 2 (Course 4)</li>
+                      <li>Quiz {{quiz.name}} (Course {{course.id}})</li>
                     </ul>
                   </div>
                   <p class="course-details-text-style">Due: April 1st, 2025</p>
-                </div>
+                </div> 
               </div>
+</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> 
+  
 
 <!---->
 
