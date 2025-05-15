@@ -51,9 +51,9 @@
           </div>
           <div class="card-section">
             <div class="section-title">Lectures</div>
-            <ul>
+            <ul *ngIf="selectedCourse.lectures.length > 1">
               <li *ngFor="let lecture of selectedCourse?.lectures ?? []">
-                {{ lecture?.name }}
+                <a href={{lecture?.description}}>{{ lecture?.name }}</a>
               </li>
             </ul>
             <div class="add-action" (click)="showAddLectureForm = true">
@@ -67,18 +67,18 @@
           </div>
           <div class="card-section">
             <div class="section-title">Assignments</div>
-            <ul>
+            <ul *ngIf="selectedCourse.assignments.length > 1">
               <li *ngFor="let assignment of selectedCourse?.assignments ?? []">
-                {{ assignment?.name }}
+                <a href="{{ assignment?.description }}">{{ assignment?.name }}</a>
               </li>
             </ul>
             <div class="add-action" [ngStyle]="{ 'margin-bottom': '10px' }" (click)="showAddAssignmentForm = true">
               Add Assignment <i class="fas fa-plus-circle"></i>
             </div>
             <div class="section-title">Quizzes</div>
-            <ul>
+            <ul *ngIf="selectedCourse.quizzes.length > 1">
               <li *ngFor="let quiz of selectedCourse?.quizzes ?? []">
-                {{ quiz?.name }}
+                <a href="{{ quiz?.description }}">{{ quiz?.name }}</a>
               </li>
             </ul>
             <div class="add-action" (click)="showAddQuizForm = true">
@@ -104,7 +104,7 @@
       </div>
 
       <div class="form-group">
-        <label for="description">Description:</label>
+        <label for="description">URL:</label>
         <input type="text" id="description" name="description" [(ngModel)]="newLectureDesc" required />
       </div>
 
@@ -126,7 +126,7 @@
       </div>
 
       <div class="form-group">
-        <label for="description">Description:</label>
+        <label for="description">URL:</label>
         <input type="text" id="description" name="description" [(ngModel)]="newAssignmentDesc" required />
       </div>
 
@@ -148,7 +148,7 @@
       </div>
 
       <div class="form-group">
-        <label for="description">Description:</label>
+        <label for="description">URL:</label>
         <input type="text" id="description" name="description" [(ngModel)]="newQuizDesc" required />
       </div>
 
