@@ -292,3 +292,29 @@ button:disabled {
 .lecture-notes-container {
   margin-top: 10.71px;
 }
+
+.lecture-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.lecture-item {
+  margin-bottom: 0.5rem;
+}
+
+.lecture-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  background-color: #f0f4f8;
+  color: #1a202c;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.lecture-link:hover {
+  background-color: #e2e8f0;
+  transform: translateX(4px);
+}

@@ -92,6 +92,7 @@
                         <p class="course-overview-title">📤 Assignments</p>
                         <div class="grade-card-container">
                             <ul class="assignment-list">
+                                @if(assignments.length !==0){
                                 @for (assignment of assignments; track $index) {
                                 <li class="assignment-item">
                                     <div class="assignment-info">
@@ -101,6 +102,9 @@
                                     <button class="submit-btn" [disabled]="submittedAssignments.has(assignment.id)" (click)="submitAssignment(assignment.id)">{{ submittedAssignments.has(assignment.id) ? 'Submitted' : 'Submit Assignment' }}</button>
                                 </li>
                                 }
+                                } @else {
+                                <li class="assignment-item">No assignments</li>
+                                }
                             </ul>
 
                         </div>
@@ -109,19 +113,15 @@
                         <p class="course-overview-title"><span>📎 </span><span class="resource-title">Resources</span></p>
                         <div class="grade-summary-container1">
                             <div class="grade-list-widget lecture-notes-container grade-list-widget:first-child">
-                                <ul class="course-details-list">
-                                    <li>Lecture Notes</li>
+                                @for (lecture of lectures; track $index) {
+                                <ul class="lecture-list">
+                                    <li class="lecture-item">
+                                        <a class="lecture-link" href="{{lecture.description}}" target="_blank">
+                                            {{lecture.title}}
+                                        </a>
+                                    </li>
                                 </ul>
-                            </div>
-                            <div class="grade-list-widget lecture-notes-container">
-                                <ul class="course-details-list">
-                                    <li>Reference Links</li>
-                                </ul>
-                            </div>
-                            <div class="grade-list-widget lecture-notes-container">
-                                <ul class="course-details-list">
-                                    <li>Sample Projects</li>
-                                </ul>
+                                }
                             </div>
                         </div>
                     </div>
