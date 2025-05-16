@@ -37,7 +37,7 @@ export class DashboardComponent {
 
 public loggedInUser: Student | null = null;
 
-public studentCourses:BehaviorSubject<Courses[]>|null = null;
+public studentCourses:BehaviorSubject<Courses[]> = new BehaviorSubject<Courses[]>([]);
 
 
 
@@ -46,15 +46,15 @@ constructor(private studentCourseService:StudentCourseService , private studentS
   private assignmentService:AssignmentService
 ){
   
-this.loadUser();
-
-this.studentCourseService.loadUser();
+this.loggedInUser = this.studentCourseService.getUser();
 
 this.studentCourseService.enrolledCourses.subscribe(
 
 courses =>{
 let foundcourses:Courses[] = courses.map(courseItem => {
   
+
+
 let enrolledCourse:Courses = new Courses(
   courseItem.id,
   courseItem.name,
@@ -72,61 +72,44 @@ let enrolledCourse:Courses = new Courses(
   courseItem.quizzes,
   courseItem.lectures
 ); 
+console.log(enrolledCourse)
 return enrolledCourse;
 });
 
-this.studentCourses?.next(foundcourses);
+this.studentCourses.next(foundcourses);
 }
 
 
 
 );
 
-this.studentCourseService.fetchCourses();
 
 
-//fetching lectures
+
+//fetching lectures,assignments and quizzes
 this.studentCourses?.subscribe(
 coursearray=> {
   coursearray.forEach(course=> this.courseLecturesMap.set(course.id,this.getCourseLectures(course)));
+coursearray.forEach(course=> this.courseAssignmentMap.set(course.id,this.getCourseAssignments(course)));
+coursearray.forEach(course=>this.courseInstructorMap.set(course.id,this.getInstructor(course)));
+coursearray.forEach(course=> this.courseQuizMap.set(course.id,this.getCourseQuizzes(course)));
+
+
+
 }
 
 );
 
-//fetching assignments
-this.studentCourses?.subscribe(
-coursearray=> {
-  coursearray.forEach(course=> this.courseAssignmentMap.set(course.id,this.getCourseAssignments(course)));
-}
 
-);
-
-
-// fetching quizzes
-
-this.studentCourses?.subscribe(
-coursearray=> {
-  coursearray.forEach(course=> this.courseQuizMap.set(course.id,this.getCourseQuizzes(course)));
-}
-
-);
-
-// fetching instructors
-
-this.studentCourses?.subscribe(
-coursearray=> {
-  coursearray.forEach(course=> this.courseQuizMap.set(course.id,this.getInstructor(course)));
-}
-
-);
-
+console.log(this.studentCourses);
+console.log(this.courseLecturesMap);
+console.log(this.courseInstructorMap);
+console.log(this.courseAssignmentMap);
+console.log(this.courseQuizMap);
 }
 
 
-  loadUser(){
-    const retrievedUser = localStorage.getItem("user")
-    this.loggedInUser = retrievedUser ? JSON.parse(retrievedUser) as Student : null;
-  }
+
 
 getInstructor(course:Courses):Instructor|null{
 
