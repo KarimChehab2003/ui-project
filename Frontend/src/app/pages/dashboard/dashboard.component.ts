@@ -37,7 +37,7 @@ export class DashboardComponent {
 
 public loggedInUser: Student | null = null;
 
-public studentCourses:BehaviorSubject<Courses[]> = new BehaviorSubject<Courses[]>([]);
+public studentCourses:BehaviorSubject<Courses[]>|null = null;
 
 
 
