@@ -1,27 +1,27 @@
-import { Assignment } from "./assignment";
-import { Quiz } from "./quiz";
-import { Lecture } from "./lecture";
+import { Assignment } from './assignment';
+import { Quiz } from './quiz';
+import { Lecture } from './lecture';
 
 export class Courses {
-    constructor (
-        public id : number,
-        public name: string,
-        public description : string,
-        
-        public durationInHour : number,
-        public level : string,
-        public sectionCount : number,
-        public lectureCount : number,
+  constructor(
+    public id: number,
+    public name: string,
+    public description: string,
 
-        public lecturesId: string[],
-        public assignmentsId: string[],
-        public quizzesId: string[],
+    public durationInHour: number,
+    public level: string,
+    public sectionCount: number,
+    public lectureCount: number,
 
-        public instructorId : number,
-        public enrolledStudents: number[],
+    public lecturesId: string[],
+    public assignmentsId: string[],
+    public quizzesId: string[],
 
-        public assignments : Assignment[] = [],
-        public quizzes : Quiz[] = [],
-        public lectures : Lecture[] = [],
-    ){}
+    public instructorId: number,
+    public enrolledStudents: number[],
+
+    public assignments: Assignment[] = [],
+    public quizzes: Quiz[] = [],
+    public lectures: Lecture[] = []
+  ) {}
 }
