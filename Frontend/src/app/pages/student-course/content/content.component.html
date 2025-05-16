@@ -71,21 +71,29 @@
                     <div class="course-overview-container">
                         <p class="course-overview-title">📈 Grades</p>
                         <div class="grade-summary-container1">
-                            <div class="grade-summary-container2">
-                                <ul class="course-details-list">
-                                    <li>Assignment 1: 85%</li>
-                                </ul>
-                            </div>
-                            <div class="grade-summary-container3">
-                                <ul class="course-details-list">
-                                    <li>Quiz 1: 90%&nbsp;</li>
-                                </ul>
-                            </div>
-                            <div class="grade-summary-container">
-                                <ul class="course-details-list">
-                                    <li>Final Grade: B+</li>
-                                </ul>
-                            </div>
+                            @if(assignmentsGrades.length !== 0 || quizGrades.length !==0 ){
+                            <ul class="assignment-list">
+                                @for (assignmentGrade of assignmentsGrades; track $index) {
+                                <li class="assignment-item {{!assignmentGrade.grade ? 'not-graded' : ''}}">
+                                    Assignment {{$index + 1}}:
+                                    <span class="grade">
+                                        {{assignmentGrade.grade ? assignmentGrade.grade + "%" : "Not graded yet"}}
+                                    </span>
+                                </li>
+                                }
+
+                                @for (quizGrade of quizGrades; track $index) {
+                                <li class="assignment-item {{!quizGrade.grade ? 'not-graded' : ''}}">
+                                    Quiz {{$index + 1}}:
+                                    <span class="grade">
+                                        {{quizGrade.grade ? quizGrade.grade + "%" : "Not graded yet"}}
+                                    </span>
+                                </li>
+                                }
+                            </ul>
+                            } @else {
+                            <p>No grades yet.</p>
+                            }
                         </div>
                     </div>
                     <div class="course-overview-container">
