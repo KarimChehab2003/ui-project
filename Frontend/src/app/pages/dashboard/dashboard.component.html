@@ -130,19 +130,30 @@
             <div class="dashboard-container">
               <div class="activity-panel">
                 <!-- <p class="activity-section-title">🏃‍♂️ Recent Activities</p>-->
-                <p class="activity-section-title"> Material and Quizzes </p>
+                <!-- <p class="activity-section-title"> Material and Quizzes </p>
                 <div class="activity-card1">
-                  <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
+                 
                   <div *ngIf="courseLecturesMap$ | async as lecturesMap">
-                    <!-- Now we know courses are loaded -->
+                    
                     <div *ngFor="let course of studentCourses | async">
-                      <!-- Lectures content here -->
+                    
                       <div *ngFor="let lecture of lecturesMap.get(course.id)">
                         <h3>{{ lecture.name }}</h3>
                       </div>
 
+                    </div> -->
+
+                      <p class="activity-section-title"> Material </p>
+                <div class="activity-card1">
+                  
+                    <div *ngFor="let course of studentCourses | async">
+                      <!-- Lectures content here -->
+                      <div *ngFor="let lecture of this.getCourseLectures(course) | async">
+                        <h3>{{ lecture.name }}</h3>
+                      </div>
+
                     </div>
-                  </div>
+                  
 
 
                   <!-- <div class="activity-card">
@@ -165,12 +176,22 @@
                     <p class="activity-section-title">📅 Due List</p>
                     <div class="card-container-with-tasks">
                       <h3 class="activity-description-text-display-style">Assignments</h3>
-                      <div *ngFor="let course of this.studentCourses | async">
+                      <!-- <div *ngFor="let course of this.studentCourses | async">
                         <div *ngIf="courseAssignmentMap$ | async as assignmentsMap">
-                          <!-- Now we know courses are loaded -->
+                         
                           <div *ngFor="let course of studentCourses | async">
-                            <!-- Lectures content here -->
+                          
                             <div *ngFor="let assignment of assignmentsMap.get(course.id)">
+                              <h3>{{ assignment.name }}</h3>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div> -->
+
+                        <div *ngFor="let course of this.studentCourses | async">
+
+                            <div *ngFor="let assignment of this.getCourseAssignments(course) | async">
                               <h3>{{ assignment.name }}</h3>
                             </div>
 
@@ -179,19 +200,35 @@
                       </div>
 
 
+
                       <h3 class="activity-description-text-display-style"> Quizzes</h3>
-                      <div *ngFor="let course of this.studentCourses | async">
+                      <!-- <div *ngFor="let course of this.studentCourses | async">
                         <div *ngIf="courseQuizMap$ | async as quizMap">
-                          <!-- Now we know courses are loaded -->
+                         
                           <div *ngFor="let course of studentCourses | async">
-                            <!-- Lectures content here -->
+                           
                             <div *ngFor="let quiz of quizMap.get(course.id)">
                               <h3>{{ quiz.name }}</h3>
                             </div>
 
                           </div>
                         </div>
+                      </div> -->
+
+                       <div *ngFor="let course of this.studentCourses | async">
+                        
+                         
+                        
+                            
+                       <div *ngFor="let quiz of this.getCourseQuizzes(course) |async">
+                              <h3>{{ quiz.name }}</h3>
+                            </div>
+
+                          </div>
+                        </div>
                       </div>
+
+
                     </div>
                   </div>
                 </div>
@@ -199,10 +236,10 @@
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div>
     </div>
   </div>
-</div>
+</div>   these tags gave an error unexpectedly -->
 
 
 <!---->
