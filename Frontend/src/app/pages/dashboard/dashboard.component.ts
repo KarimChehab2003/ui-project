@@ -52,11 +52,39 @@ this.studentCourseService.loadUser();
 
 this.studentCourseService.enrolledCourses.subscribe(
 
-courses =>{this.studentCourses?.next(courses)}
+courses =>{
+let foundcourses:Courses[] = courses.map(courseItem => {
+  
+let enrolledCourse:Courses = new Courses(
+  courseItem.id,
+  courseItem.name,
+  courseItem.description,
+  courseItem.durationInHours,
+  courseItem.level,
+  courseItem.sectionCount,
+  courseItem.lectureCount,
+  courseItem.lecturesId,
+  courseItem.assignmentIds,
+  courseItem.quizzesId,
+  courseItem.instructorId,
+  courseItem.enrolledStudents,
+  courseItem.assignments,
+  courseItem.quizzes,
+  courseItem.lectures
+); 
+return enrolledCourse;
+});
+
+this.studentCourses?.next(foundcourses);
+}
+
+
 
 );
 
 this.studentCourseService.fetchCourses();
+
+
 //fetching lectures
 this.studentCourses?.subscribe(
 coursearray=> {
