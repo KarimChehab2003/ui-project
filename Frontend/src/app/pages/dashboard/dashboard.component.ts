@@ -16,10 +16,11 @@ import { Lecture } from '../../models/lecture';
 import { Quiz } from '../../models/quiz';
 import { AssignmentService } from '../../services/assignment/assignment.service';
 import { Assignment } from '../../models/assignment';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterModule ,CommonModule ],
+  imports: [RouterModule ,CommonModule,FormsModule ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

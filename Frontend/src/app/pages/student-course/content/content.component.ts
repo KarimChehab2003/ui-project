@@ -15,6 +15,7 @@ export class ContentComponent {
   assignments: any[] = [];
   submittedAssignments: Set<number> = new Set();
   user: Student | null = null;
+  
   constructor(studentCourseService: StudentCourseService, private http: HttpClient){
     this.user = studentCourseService.getUser();
     studentCourseService.selectedCourse.subscribe((course)=> {
