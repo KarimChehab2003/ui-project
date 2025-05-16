@@ -21,7 +21,12 @@ export class ContentComponent {
     this.user = studentCourseService.getUser();
     studentCourseService.selectedCourse.subscribe((course)=> {
       this.selectedCourse = course;
-      console.log(this.selectedCourse);
+      console.log("THIS IS SELECTED COURSE: ",this.selectedCourse);
+
+      this.instructorName = '';
+      this.assignments = [];
+      this.lectures = [];
+      
       if(this.selectedCourse)
       {
         this.fetchInstructorName();
@@ -42,6 +47,8 @@ export class ContentComponent {
   }
 
   fetchAssignments(){
+    this.assignments = [];
+
     const requests = this.selectedCourse.assignmentIds.$values.map((id: any) => 
       this.http.get<any>(`http://localhost:5090/api/assignments/${id}`)
     );
@@ -57,6 +64,8 @@ export class ContentComponent {
 
   
   fetchLectures(){
+    this.lectures = [];
+
     const requests = this.selectedCourse.lectureIDS.$values.map((id: any) => 
       this.http.get<any>(`http://localhost:5090/api/lectures/${id}`)
     );
