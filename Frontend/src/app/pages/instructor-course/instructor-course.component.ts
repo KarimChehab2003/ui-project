@@ -69,15 +69,23 @@ export class InstructorCourseComponent implements OnInit {
                 this.gradesAssignment[student.id] = {};
               }
               for (const assignment of this.selectedCourse?.assignments || []) {
+                if (!assignment || !assignment.id) continue;
                 this.instructorService.getAssignmentGrade(student.id, assignment.id).subscribe(
                   (grade: number | null) => {
+                    if (!this.gradesAssignment[student.id]) {
+                      this.gradesAssignment[student.id] = {};
+                    }
                     this.gradesAssignment[student.id][assignment.id] = grade ?? 0;
                   }
                 );
               }
               for (const quiz of this.selectedCourse?.quizzes || []) {
+                if (!quiz || !quiz.id) continue;
                 this.instructorService.getQuizGrade(student.id, quiz.id).subscribe(
                   (grade: number | null) => {
+                    if (!this.gradesQuiz[student.id]) {
+                      this.gradesQuiz[student.id] = {};
+                    }
                     this.gradesQuiz[student.id][quiz.id] = grade ?? 0;
                   }
                 );
@@ -106,15 +114,23 @@ export class InstructorCourseComponent implements OnInit {
           this.gradesQuiz[student.id] = {};
         }
         for (const assignment of this.selectedCourse?.assignments || []) {
+          if (!assignment || !assignment.id) continue;
           this.instructorService.getAssignmentGrade(student.id, assignment.id).subscribe(
             (grade: number | null) => {
+              if (!this.gradesAssignment[student.id]) {
+                this.gradesAssignment[student.id] = {};
+              }
               this.gradesAssignment[student.id][assignment.id] = grade ?? 0;
             }
           );
         }
         for (const quiz of this.selectedCourse?.quizzes || []) {
+          if (!quiz || !quiz.id) continue;
           this.instructorService.getQuizGrade(student.id, quiz.id).subscribe(
             (grade: number | null) => {
+              if (!this.gradesQuiz[student.id]) {
+                this.gradesQuiz[student.id] = {};
+              }
               this.gradesQuiz[student.id][quiz.id] = grade ?? 0;
             }
           );
@@ -128,7 +144,7 @@ export class InstructorCourseComponent implements OnInit {
     const trimmedDesc = this.newLectureDesc.trim();
 
     if (!trimmedName || !trimmedDesc) {
-      alert('Please fill in both the name and description of the lecture.');
+      alert('Please fill in both the name and Url of the lecture.');
       return;
     }
 
@@ -159,7 +175,7 @@ export class InstructorCourseComponent implements OnInit {
     const trimmedDesc = this.newAssignmentDesc.trim();
 
     if (!trimmedName || !trimmedDesc) {
-      alert('Please fill in both the name and description of the Assignment.');
+      alert('Please fill in both the name and Url of the Assignment.');
       return;
     }
 
@@ -190,7 +206,7 @@ export class InstructorCourseComponent implements OnInit {
     const trimmedDesc = this.newQuizDesc.trim();
 
     if (!trimmedName || !trimmedDesc) {
-      alert('Please fill in both the name and description of the Quiz.');
+      alert('Please fill in both the name and Url of the Quiz.');
       return;
     }
 

@@ -109,17 +109,17 @@
         <div class="enrolled-courses-container">
           <p class="enrolled-courses-heading">📚 Enrolled Courses</p>
           <div class="course-card-container1">
-            <div class="course-card-container" *ngFor="let course in studentCourses | async">
+            <div class="course-card-container" *ngFor="let course of studentCourses | async">
               <div class="course-info-container1">
-                <img src="assets/image_d51261dc.png" class="avatar-image-container" />
+                <img src="src/app/pages/dashboard/assets/image_d51261dc.png" class="avatar-image-container" />
                 <div class="course-info-container">
                   <p class="course-title-section">{{course.name}}</p>
-                  <p class="instructor-details">{{this.getInstructor(course)?.name}}</p>
+                  <p class="instructor-details">{{this.courseInstructorMap.get(course.id).name}}</p>
                 </div>
               </div>
               <div class="progress-bar-container">
                 <div class="progress-container">
-                  <img src="assets/image_1179af48.png" class="progress-bar" />
+                  <img src="src/app/pages/dashboard/assets/image_1179af48.png" class="progress-bar" />
                   <p class="progress-indicator">80% Completed</p>
                 </div>
                 <!-- PLACEHOLDER - Button Component detected here. Go to "React Code" via right click menu to see code generated -->
@@ -133,14 +133,14 @@
                 <p class="activity-section-title"> Material and Quizzes </p>
                 <div class="activity-card1">
                   <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
-                  <div class="activity-card" *ngFor="let course in this.studentCourses">
+                  <div class="activity-card" *ngFor="let course of this.studentCourses |async">
                     <div class="svg-container">
                       <svg viewBox="0 0 48 48" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path id="Icon_7" d="M38.9645,15.0254l-20.576,17.949l-9.353,-8.159" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" />
                       </svg>
                     </div>
                     <h3 class="activity-description-text-display-style"> Lectures</h3>
-                    <p class="activity-description-text-display-style" *ngFor="let courselect in this.courseLecturesMap.get(course.id)">Lecture {{courselect.name}}</p>
+                    <p class="activity-description-text-display-style" *ngFor="let courselect of this.courseLecturesMap.get(course.id)">Lecture {{courselect.name}}</p>
                     <br>
 
                     <a routerLink="/student-course">Go to Course</a>
@@ -167,8 +167,8 @@
                     <p class="activity-section-title">📅 Due List</p>
                     <div class="card-container-with-tasks">
                       <h3 class="activity-description-text-display-style">Assignments</h3>
-                      <div *ngFor="let course in this.studentCourses">
-                        <div class="course-item-container" *ngFor="let assignment in this.courseAssignmentMap(course.id)">
+                      <div *ngFor="let course of this.studentCourses | async">
+                        <div class="course-item-container" *ngFor="let assignment of this.courseAssignmentMap.get(course.id)">
                           <div class="course-item-display-style">
                             <ul class="course-list-item">
 
@@ -183,8 +183,8 @@
 
 
                       <h3 class="activity-description-text-display-style"> Quizzes</h3>
-                      <div *ngFor="let course in this.studentCourses">
-                        <div class="course-item-container1" *ngFor="let quiz in this.courseQuizMap(course)">
+                      <div *ngFor="let course of this.studentCourses | async">
+                        <div class="course-item-container1" *ngFor="let quiz of this.courseQuizMap.get(course.id)">
                           <div class="course-item-display-style">
                             <ul class="course-list-item">
                               <li>Quiz {{quiz.name}} (Course {{course.id}})</li>
