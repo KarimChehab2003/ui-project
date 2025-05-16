@@ -15,7 +15,7 @@ export class SidebarComponent {
  constructor(private studentCourseService : StudentCourseService) {
   this.user = this.studentCourseService.getUser();
   this.studentCourseService.enrolledCourses.subscribe((courses)=>this.courses = courses)
-  // console.log("THIS IS COURSES :",this.courses)
+  console.log("THIS IS COURSES :",this.courses)
  }
 
  handleSelect(course:any){

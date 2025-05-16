@@ -15,7 +15,8 @@ export class ContentComponent {
   assignments: any[] = [];
   submittedAssignments: Set<number> = new Set();
   user: Student | null = null;
-  
+  lectures : any[] =[]; 
+
   constructor(studentCourseService: StudentCourseService, private http: HttpClient){
     this.user = studentCourseService.getUser();
     studentCourseService.selectedCourse.subscribe((course)=> {
@@ -25,6 +26,7 @@ export class ContentComponent {
       {
         this.fetchInstructorName();
         this.fetchAssignments();
+        this.fetchLectures();
       }
     });
 
@@ -53,6 +55,21 @@ export class ContentComponent {
     });
   }
 
+  
+  fetchLectures(){
+    const requests = this.selectedCourse.lectureIDS.$values.map((id: any) => 
+      this.http.get<any>(`http://localhost:5090/api/lectures/${id}`)
+    );
+
+    // using forkJoin to wait till all responses arrives
+    forkJoin<any[]>(requests).subscribe((responses: any[]) => {
+      this.lectures = responses.filter(assignment => 
+        assignment.courseId === this.selectedCourse.id
+      );
+      console.log("Filtered lectures: ", this.lectures);
+    });
+  }
+
   submitAssignment(assignmentId: number){
     this.http.post<any>(`http://localhost:5090/api/submissions/${this.user?.id}/${assignmentId}`, {}).subscribe(()=>{
       this.submittedAssignments.add(assignmentId)
@@ -60,4 +77,6 @@ export class ContentComponent {
       console.log(this.submittedAssignments);
     })
   }
+
+
 }
