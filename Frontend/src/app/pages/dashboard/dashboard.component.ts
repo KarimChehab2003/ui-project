@@ -17,6 +17,7 @@ import { Quiz } from '../../models/quiz';
 import { AssignmentService } from '../../services/assignment/assignment.service';
 import { Assignment } from '../../models/assignment';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -25,13 +26,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
-  public courseLecturesMap = new Map();
-
-  public courseAssignmentMap = new Map();
-
-  public courseQuizMap = new Map();
-
-  public courseInstructorMap = new Map();
+  public courseLecturesMap$ = new BehaviorSubject<Map<number, Lecture[]>>(
+    new Map()
+  );
+  public courseAssignmentMap$ = new BehaviorSubject<Map<number, Assignment[]>>(
+    new Map()
+  );
+  public courseQuizMap$ = new BehaviorSubject<Map<number, Quiz[]>>(new Map());
+  public courseInstructorMap$ = new BehaviorSubject<
+    Map<number, Instructor | null>
+  >(new Map());
 
   public loggedInUser: Student | null = null;
 
@@ -50,9 +54,7 @@ export class DashboardComponent {
     this.studentCourses = new BehaviorSubject<Courses[]>([]); // Reset it everytime the page reloads
 
     this.studentCourseService.enrolledCourses.subscribe((courses) => {
-      console.log('This is courses: ', courses);
       let foundcourses: Courses[] = courses.map((courseItem) => {
-        console.log('This is a single course item: ', courseItem);
         let enrolledCourse: Courses = new Courses(
           courseItem.id,
           courseItem.title, // Its not name, its title
@@ -73,18 +75,39 @@ export class DashboardComponent {
 
         return enrolledCourse;
       });
-      console.log('This is found courses array: ', foundcourses);
 
       this.studentCourses?.next(foundcourses);
 
       foundcourses.forEach((course) => {
-        this.courseLecturesMap.set(course.id, this.getCourseLectures(course)); // lectures
-        this.courseAssignmentMap.set(
-          course.id,
-          this.getCourseAssignments(course)
-        ); // assignments
-        this.courseQuizMap.set(course.id, this.getCourseQuizzes(course)); // quizzes
-        this.courseInstructorMap.set(course.id, this.getInstructor(course)); // instructors
+        // Lectures
+        this.lectureService
+          .getCourseLectures(course.id)
+          .subscribe((lectures) => {
+            const map = this.courseLecturesMap$.getValue();
+            map.set(course.id, lectures);
+            this.courseLecturesMap$.next(new Map(map));
+          });
+
+        // Assignments
+        this.assignmentService
+          .getCourseAssignments(course.id)
+          .subscribe((assignments) => {
+            const map = this.courseAssignmentMap$.getValue();
+            map.set(course.id, assignments);
+            this.courseAssignmentMap$.next(new Map(map));
+          });
+
+        // Quizzes
+        this.quizService.getCourseQuizzes(course.id).subscribe((quizzes) => {
+          const map = this.courseQuizMap$.getValue();
+          map.set(course.id, quizzes);
+          this.courseQuizMap$.next(new Map(map));
+        });
+
+        // Instructor
+        const instructorMap = this.courseInstructorMap$.getValue();
+        instructorMap.set(course.id, this.getInstructor(course));
+        this.courseInstructorMap$.next(new Map(instructorMap));
       });
     });
 
@@ -131,22 +154,22 @@ export class DashboardComponent {
     this.loggedInUser = retrievedUser
       ? (JSON.parse(retrievedUser) as Student)
       : null;
-    console.log(this.loggedInUser);
+    // console.log(this.loggedInUser);
   }
 
   getInstructor(course: Courses): Instructor | null {
     return this.studentService.getInstructor(course.instructorId);
   }
 
-  getCourseLectures(course: Courses): Lecture[] {
+  getCourseLectures(course: Courses): Observable<Lecture[]> {
     return this.lectureService.getCourseLectures(course.id);
   }
 
-  getCourseQuizzes(course: Courses): Quiz[] {
+  getCourseQuizzes(course: Courses): Observable<Quiz[]> {
     return this.quizService.getCourseQuizzes(course.id);
   }
 
-  getCourseAssignments(course: Courses): Assignment[] {
-    return this.assignmentService.getcourseAssignment(course.id);
+  getCourseAssignments(course: Courses): Observable<Assignment[]> {
+    return this.assignmentService.getCourseAssignments(course.id);
   }
 }

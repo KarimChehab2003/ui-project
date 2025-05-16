@@ -114,7 +114,7 @@
                 <img src="src/app/pages/dashboard/assets/image_d51261dc.png" class="avatar-image-container" />
                 <div class="course-info-container">
                   <p class="course-title-section">{{course.name}}</p>
-                  <p class="instructor-details">{{this.courseInstructorMap.get(course.id).name}}</p>
+                  <p class="instructor-details">{{this.courseInstructorMap$.getValue()}}</p>
                 </div>
               </div>
               <div class="progress-bar-container">
@@ -133,17 +133,15 @@
                 <p class="activity-section-title"> Material and Quizzes </p>
                 <div class="activity-card1">
                   <!-- Repeated elements detected. These are rendered using loops & conditions in the React tab -->
-                  <div class="activity-card" *ngFor="let course of this.studentCourses |async">
-                    <div class="svg-container">
-                      <svg viewBox="0 0 48 48" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path id="Icon_7" d="M38.9645,15.0254l-20.576,17.949l-9.353,-8.159" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" />
-                      </svg>
-                    </div>
-                    <h3 class="activity-description-text-display-style"> Lectures</h3>
-                    <p class="activity-description-text-display-style" *ngFor="let courselect of this.courseLecturesMap.get(course.id)">Lecture {{courselect.name}}</p>
-                    <br>
+                  <div *ngIf="courseLecturesMap$ | async as lecturesMap">
+                    <!-- Now we know courses are loaded -->
+                    <div *ngFor="let course of studentCourses | async">
+                      <!-- Lectures content here -->
+                      <div *ngFor="let lecture of lecturesMap.get(course.id)">
+                        <h3>{{ lecture.name }}</h3>
+                      </div>
 
-                    <a routerLink="/student-course">Go to Course</a>
+                    </div>
                   </div>
 
 
@@ -168,29 +166,30 @@
                     <div class="card-container-with-tasks">
                       <h3 class="activity-description-text-display-style">Assignments</h3>
                       <div *ngFor="let course of this.studentCourses | async">
-                        <div class="course-item-container" *ngFor="let assignment of this.courseAssignmentMap.get(course.id)">
-                          <div class="course-item-display-style">
-                            <ul class="course-list-item">
+                        <div *ngIf="courseAssignmentMap$ | async as assignmentsMap">
+                          <!-- Now we know courses are loaded -->
+                          <div *ngFor="let course of studentCourses | async">
+                            <!-- Lectures content here -->
+                            <div *ngFor="let assignment of assignmentsMap.get(course.id)">
+                              <h3>{{ assignment.name }}</h3>
+                            </div>
 
-
-
-                              <li>Assignment {{assignment.name}} (Course {{course.id}})</li>
-                            </ul>
                           </div>
-                          <p class="course-details-text-style">Due: March 30th, 2025</p>
                         </div>
                       </div>
 
 
                       <h3 class="activity-description-text-display-style"> Quizzes</h3>
                       <div *ngFor="let course of this.studentCourses | async">
-                        <div class="course-item-container1" *ngFor="let quiz of this.courseQuizMap.get(course.id)">
-                          <div class="course-item-display-style">
-                            <ul class="course-list-item">
-                              <li>Quiz {{quiz.name}} (Course {{course.id}})</li>
-                            </ul>
+                        <div *ngIf="courseQuizMap$ | async as quizMap">
+                          <!-- Now we know courses are loaded -->
+                          <div *ngFor="let course of studentCourses | async">
+                            <!-- Lectures content here -->
+                            <div *ngFor="let quiz of quizMap.get(course.id)">
+                              <h3>{{ quiz.name }}</h3>
+                            </div>
+
                           </div>
-                          <p class="course-details-text-style">Due: April 1st, 2025</p>
                         </div>
                       </div>
                     </div>
