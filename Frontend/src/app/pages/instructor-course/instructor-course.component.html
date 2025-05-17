@@ -24,7 +24,7 @@
           </div>
           <ul class="courses-list" [ngStyle]="{ 'margin': '20px' }" *ngIf="coursesExpanded">
             <li *ngFor="let course of instructorCourses" [class.selected]="selectedCourse === course" (click)="selectCourse(course)">
-              <p [ngStyle]="{ 'padding-left': '10px' }">{{ course.name }}</p>
+              <p [ngStyle]="{ 'padding-left': '10px' }">{{ course.title }}</p>
             </li>
           </ul>
         </li>
@@ -42,11 +42,11 @@
     <header class="main-header">
       <div class="app-title">LMS</div>
     </header>
-    
+
     <div *ngIf="!showEnrolledStudentsAndGrades">
 
       <section class="course-section" *ngIf="selectedCourse">
-        <h1>{{ selectedCourse.name }}</h1>
+        <h1>{{ selectedCourse.title }}</h1>
         <div class="course-content">
           <div class="course-card">
             <div class="card-title">
@@ -54,9 +54,9 @@
             </div>
             <div class="card-section">
               <div class="section-title">Lectures</div>
-              <ul *ngIf="selectedCourse.lectures.length > 1 || selectedCourse.lectures[0].name != undefined">
+              <ul *ngIf="selectedCourse.lectures.length > 1 || selectedCourse.lectures[0].title != undefined">
                 <li *ngFor="let lecture of selectedCourse?.lectures ?? []">
-                  <a href={{lecture?.description}}>{{ lecture?.name }}</a>
+                  <a href={{lecture?.description}}>{{ lecture?.title }}</a>
                 </li>
               </ul>
               <div class="add-action" (click)="showAddLectureForm = true">
@@ -70,18 +70,18 @@
             </div>
             <div class="card-section">
               <div class="section-title">Assignments</div>
-              <ul *ngIf="selectedCourse.assignments.length > 1 || selectedCourse.assignments[0].name != undefined">
+              <ul *ngIf="selectedCourse.assignments.length > 1 || selectedCourse.assignments[0].title != undefined">
                 <li *ngFor="let assignment of selectedCourse?.assignments ?? []">
-                  <a href="{{ assignment?.description }}">{{ assignment?.name }}</a>
+                  <a href="{{ assignment?.description }}">{{ assignment?.title }}</a>
                 </li>
               </ul>
               <div class="add-action" [ngStyle]="{ 'margin-bottom': '10px' }" (click)="showAddAssignmentForm = true">
                 Add Assignment <i class="fas fa-plus-circle"></i>
               </div>
               <div class="section-title">Quizzes</div>
-              <ul *ngIf="selectedCourse.quizzes.length > 1 || selectedCourse.quizzes[0].name != undefined">
+              <ul *ngIf="selectedCourse.quizzes.length > 1 || selectedCourse.quizzes[0].title != undefined">
                 <li *ngFor="let quiz of selectedCourse?.quizzes ?? []">
-                  <a href="{{ quiz?.description }}">{{ quiz?.name }}</a>
+                  <a href="{{ quiz?.description }}">{{ quiz?.title }}</a>
                 </li>
               </ul>
               <div class="add-action" (click)="showAddQuizForm = true">
@@ -98,7 +98,7 @@
     <div *ngIf="showEnrolledStudentsAndGrades">
 
       <section [ngStyle]="{ 'margin-left': '50px' }">
-        <h1 class="course_title">{{ selectedCourse?.name }} 's Enrolled Students and Grades</h1>
+        <h1 class="course_title">{{ selectedCourse?.title }} 's Enrolled Students and Grades</h1>
         <button class="back-btn" (click)="showEnrolledStudentsAndGrades = false">Back</button>
 
         <table>
@@ -108,17 +108,17 @@
               <th>Student Names</th>
 
               <th *ngFor="let assignment of selectedCourse?.assignments">
-                <ng-container *ngIf="assignment?.name !== undefined">
-                  {{ assignment.name }}
+                <ng-container *ngIf="assignment?.title !== undefined">
+                  {{ assignment.title }}
                 </ng-container>
               </th>
 
               <th *ngFor="let quiz of selectedCourse?.quizzes">
-                <ng-container *ngIf="quiz?.name !== undefined">
-                  {{ quiz.name }}
+                <ng-container *ngIf="quiz?.title !== undefined">
+                  {{ quiz.title }}
                 </ng-container>
               </th>
-              
+
             </tr>
           </thead>
 
@@ -127,14 +127,14 @@
               <td>{{ student.name }}</td>
 
               <td *ngFor="let assignment of selectedCourse?.assignments || []">
-                <ng-container *ngIf="assignment?.name !== undefined">
+                <ng-container *ngIf="assignment?.title !== undefined">
                   <input type="number" min="0" max="100" [(ngModel)]="gradesAssignment[student.id][assignment.id]" (ngModelChange)="gradeInputChangeAssignment(student.id, assignment.id, $event)">
                   <button (click)="updateAssignmentGrade(student.id, assignment.id)">Update</button>
                 </ng-container>
               </td>
 
               <td *ngFor="let quiz of selectedCourse?.quizzes || []">
-                <ng-container *ngIf="quiz?.name !== undefined">
+                <ng-container *ngIf="quiz?.title !== undefined">
                   <input type="number" min="0" max="100" [(ngModel)]="gradesQuiz[student.id][quiz.id]" (ngModelChange)="gradeInputChangeQuiz(student.id, quiz.id, $event)">
                   <button (click)="updateQuizGrade(student.id, quiz.id)">Update</button>
                 </ng-container>
@@ -149,7 +149,7 @@
       </section>
 
     </div>
-    
+
   </main>
 </div>
 

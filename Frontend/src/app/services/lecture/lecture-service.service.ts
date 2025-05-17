@@ -1,22 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Lecture } from '../../models/lecture';
-import { Observable, map } from 'rxjs';
+import { Observable, map, BehaviorSubject } from 'rxjs';
+import { Assignment } from '../../models/assignment';
 @Injectable({
   providedIn: 'root',
 })
 export class LectureServiceService {
   private baseUrl = 'http://localhost:5090/api';
-  constructor(private http: HttpClient) {}
+  public courseLectures$ = new BehaviorSubject<Assignment[]>([]);
 
-  getCourseLectures(courseId: number): Observable<Lecture[]> {
-    return this.http.get<any>(`${this.baseUrl}/lectures`).pipe(
-      map((response: any) => {
-        const lectures: Lecture[] = response.$values || [];
-        return lectures.filter(
-          (lecture: Lecture) => lecture.courseId === courseId
-        );
-      })
-    );
+  constructor(private http: HttpClient) {
+    this.getCourseLectures();
+  }
+
+  getCourseLectures() {
+    this.http.get<any>(`${this.baseUrl}/lectures`).subscribe((response) => {
+      // console.log(response.$values);
+      this.courseLectures$.next(response.$values);
+    });
   }
 }

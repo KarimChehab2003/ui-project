@@ -5,10 +5,10 @@ import { Lecture } from './lecture';
 export class Courses {
   constructor(
     public id: number,
-    public name: string,
+    public title: string,
     public description: string,
 
-    public durationInHour: number,
+    public durationInHours: number,
     public level: string,
     public sectionCount: number,
     public lectureCount: number,
