@@ -148,6 +148,7 @@
                   
                     <div *ngFor="let course of studentCourses | async">
                       <!-- Lectures content here -->
+                       <h3>{{course.name}}</h3>
                       <div *ngFor="let lecture of this.getCourseLectures(course) | async">
                         <h3>{{ lecture.name }}</h3>
                       </div>
@@ -190,7 +191,7 @@
                       </div> -->
 
                         <div *ngFor="let course of this.studentCourses | async">
-
+                            <h3>{{course.name}}</h3>
                             <div *ngFor="let assignment of this.getCourseAssignments(course) | async">
                               <h3>{{ assignment.name }}</h3>
                             </div>
@@ -217,7 +218,7 @@
 
                        <div *ngFor="let course of this.studentCourses | async">
                         
-                         
+                         <h3>{{course.name}}</h3>
                         
                             
                        <div *ngFor="let quiz of this.getCourseQuizzes(course) |async">
