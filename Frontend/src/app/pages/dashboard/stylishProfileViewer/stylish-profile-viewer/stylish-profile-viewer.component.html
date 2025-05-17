@@ -1,49 +1,57 @@
 <body>
-    <div style="display: inline-block; width: 300px" data-ignore="used only for top most containter width">
-      <div class="primary-dashboard-layout">
-        <div class="user-panel">
-          <div class="center-box-with-image">
-            <div class="image-container">
-              <div class="vertical-centered-box">
-                <img src="stylishProfileViewer/stylish-profile-viewer/assets/image_37e99be4.png" class="image-container1" />
-              </div>
+  <div style="display: inline-block; width: 300px" data-ignore="used only for top most containter width">
+    <div class="primary-dashboard-layout">
+      <div class="user-panel">
+        <div class="center-box-with-image">
+          <div class="image-container">
+            <div class="vertical-centered-box">
+              <img src="stylishProfileViewer/stylish-profile-viewer/assets/image_37e99be4.png" class="image-container1" />
             </div>
-          </div>
-          <div class="welcome-section">
-            <div class="horizontal-flex-container">
-              <img src="stylishProfileViewer/stylish-profile-viewer/assets/image_9388870d.png" class="welcome-box" />
-              <p class="welcome-message-style">Welcome</p>
-            </div>
-            <p class="welcome-message">Karim Chehab</p>
           </div>
         </div>
-        <div class="vertical-menu-container">
-          <div class="vertical-flex-container">
-            <div class="dashboard-container">
-              <div class="svg-container">
-                <svg viewBox="0 0 48 48" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Icon_2" d="M18.1667,37.125h11.6666M24,31.292v5.833M12.3333,10.875h23.3334c1.6108,0 2.9166,1.306 2.9166,2.917v14.583c0,1.611 -1.3058,2.917 -2.9166,2.917h-23.3334c-1.6108,0 -2.9166,-1.306 -2.9166,-2.917v-14.583c0,-1.611 1.3058,-2.917 2.9166,-2.917z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" /></svg>
-              </div>
-              <p class="dashboard-title-style">Dashboard</p>
-            </div>
-            <div class="course-card-container">
-              <div class="svg-container">
-                <svg viewBox="0 0 48 48" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Icon_3" d="M9.4167,9.417l21.1458,5.104l2.1875,10.937l-7.2917,7.292l-10.9375,-2.188zM9.4167,9.417l11.0629,11.063M24,34.208l10.2083,-10.208l4.375,4.375l-10.2083,10.208zM25.4583,22.542c0,1.61 -1.3058,2.916 -2.9166,2.916c-1.6109,0 -2.9167,-1.306 -2.9167,-2.916c0,-1.611 1.3058,-2.917 2.9167,-2.917c1.6108,0 2.9166,1.306 2.9166,2.917z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" /></svg>
-              </div>
-              <p class="dashboard-title-style">My Courses</p>
-            </div>
+        <div class="welcome-section">
+          <div class="horizontal-flex-container">
+            <img src="stylishProfileViewer/stylish-profile-viewer/assets/image_9388870d.png" class="welcome-box" />
+            <p class="welcome-message-style">Welcome</p>
           </div>
-          <div class="profile-card">
-            <div class="svg-container1">
-              <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Icon_5" d="M27.6667,29.125v-2.917c0,-1.547 -0.6146,-3.03 -1.7086,-4.124c-1.0939,-1.094 -2.5777,-1.709 -4.1248,-1.709h-11.6666c-1.5471,0 -3.0309,0.615 -4.1248,1.709c-1.094,1.094 -1.7086,2.577 -1.7086,4.124v2.917M21.8333,8.708c0,3.222 -2.6116,5.834 -5.8333,5.834c-3.2217,0 -5.8333,-2.612 -5.8333,-5.834c0,-3.221 2.6116,-5.833 5.8333,-5.833c3.2217,0 5.8333,2.612 5.8333,5.833z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" /></svg>
+          <p class="welcome-message">{{this.loggedInUser?.name}}</p>
+        </div>
+      </div>
+      <div class="vertical-menu-container">
+        <div class="vertical-flex-container">
+          <div class="dashboard-container">
+            <div class="svg-container">
+              <svg viewBox="0 0 48 48" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path id="Icon_2" d="M18.1667,37.125h11.6666M24,31.292v5.833M12.3333,10.875h23.3334c1.6108,0 2.9166,1.306 2.9166,2.917v14.583c0,1.611 -1.3058,2.917 -2.9166,2.917h-23.3334c-1.6108,0 -2.9166,-1.306 -2.9166,-2.917v-14.583c0,-1.611 1.3058,-2.917 2.9166,-2.917z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" />
+              </svg>
             </div>
-            <p class="profile-link-style">Profile</p>
+            <p class="dashboard-title-style">Dashboard</p>
           </div>
-          <div class="navbar-item-logout">
-            <div class="svg-container1">
-              <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg"><path id="Icon_4" d="M11.625,29.125h-5.8333c-0.7736,0 -1.5154,-0.307 -2.0624,-0.854c-0.547,-0.547 -0.8543,-1.289 -0.8543,-2.063v-20.416c0,-0.774 0.3073,-1.516 0.8543,-2.063c0.547,-0.547 1.2888,-0.854 2.0624,-0.854h5.8333M21.8333,23.292l7.2917,-7.292M29.125,16l-7.2917,-7.292M29.125,16h-17.5" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" /></svg>
+          <div class="course-card-container">
+            <div class="svg-container">
+              <svg viewBox="0 0 48 48" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path id="Icon_3" d="M9.4167,9.417l21.1458,5.104l2.1875,10.937l-7.2917,7.292l-10.9375,-2.188zM9.4167,9.417l11.0629,11.063M24,34.208l10.2083,-10.208l4.375,4.375l-10.2083,10.208zM25.4583,22.542c0,1.61 -1.3058,2.916 -2.9166,2.916c-1.6109,0 -2.9167,-1.306 -2.9167,-2.916c0,-1.611 1.3058,-2.917 2.9167,-2.917c1.6108,0 2.9166,1.306 2.9166,2.917z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" />
+              </svg>
             </div>
-            <p class="profile-link-style">Logout</p>
+            <p class="dashboard-title-style">My Courses</p>
           </div>
+        </div>
+        <div class="profile-card">
+          <div class="svg-container1">
+            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path id="Icon_5" d="M27.6667,29.125v-2.917c0,-1.547 -0.6146,-3.03 -1.7086,-4.124c-1.0939,-1.094 -2.5777,-1.709 -4.1248,-1.709h-11.6666c-1.5471,0 -3.0309,0.615 -4.1248,1.709c-1.094,1.094 -1.7086,2.577 -1.7086,4.124v2.917M21.8333,8.708c0,3.222 -2.6116,5.834 -5.8333,5.834c-3.2217,0 -5.8333,-2.612 -5.8333,-5.834c0,-3.221 2.6116,-5.833 5.8333,-5.833c3.2217,0 5.8333,2.612 5.8333,5.833z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" />
+            </svg>
+          </div>
+          <p class="profile-link-style">Profile</p>
+        </div>
+        <div class="navbar-item-logout">
+          <div class="svg-container1">
+            <svg viewBox="0 0 32 32" x="0" y="0" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path id="Icon_4" d="M11.625,29.125h-5.8333c-0.7736,0 -1.5154,-0.307 -2.0624,-0.854c-0.547,-0.547 -0.8543,-1.289 -0.8543,-2.063v-20.416c0,-0.774 0.3073,-1.516 0.8543,-2.063c0.547,-0.547 1.2888,-0.854 2.0624,-0.854h5.8333M21.8333,23.292l7.2917,-7.292M29.125,16l-7.2917,-7.292M29.125,16h-17.5" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" />
+            </svg>
+          </div>
+          <p class="profile-link-style">Logout</p>
         </div>
       </div>
     </div>
+  </div>

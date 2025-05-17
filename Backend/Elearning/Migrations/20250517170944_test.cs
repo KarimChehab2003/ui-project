@@ -5,7 +5,7 @@
 namespace Elearning.Migrations
 {
     /// <inheritdoc />
-    public partial class newDB : Migration
+    public partial class test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
